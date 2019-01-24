@@ -20,18 +20,13 @@ public class TwoSumTest
 {
     TwoSumSolution twoSum = new TwoSumSolution();
 
-    [Fact]
-    void Test1()
+    [Theory]
+    [InlineData(new[] { 2, 7, 11, 15 }, 9, 0, 1)]
+    [InlineData(new[] { 1, 1, 2, 3 }, 5, 2, 3)]
+    void Test(int[] nums, int target, int expect1, int expect2)
     {
-        int[] result = twoSum.TwoSum(new[] { 2, 7, 11, 15 }, 9);
-        Assert.Equal(0, result[0]);
-        Assert.Equal(1, result[1]);
-    }
-    [Fact]
-    void Test2()
-    {
-        int[] result = twoSum.TwoSum(new[] { 1, 1, 2, 3 }, 5);
-        Assert.Equal(2, result[0]);
-        Assert.Equal(3, result[1]);
+        int[] result = twoSum.TwoSum(nums, target);
+        Assert.Equal(expect1, result[0]);
+        Assert.Equal(expect2, result[1]);
     }
 }
