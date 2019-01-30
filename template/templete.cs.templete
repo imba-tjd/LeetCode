@@ -1,0 +1,26 @@
+using System;
+using Xunit;
+
+namespace <NS>
+{
+    public interface ISolution {  }
+    public class Solution : ISolution
+    {
+        public
+    }
+
+    // public abstract class UnitTest<T> where T : ISolution, new()
+    // {
+    //     public ISolution so;
+    //
+    //     [Theory]
+    //     [InlineData()]
+    //     void Test(int input, int expect)
+    //     {
+    //         so = new T();
+    //         int result = so.
+    //         Assert.Equal(expect, result);
+    //     }
+    // }
+    // public class Test1 : UnitTest<Solution> { }
+}
