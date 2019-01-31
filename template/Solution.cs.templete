@@ -9,7 +9,7 @@ namespace <NS>
         <Fun>
     }
 
-    // public abstract class UnitTest
+    // public abstract class MultiTest
     // {
     //     protected abstract ISolution GetSo { get; }
     //
