@@ -5,7 +5,7 @@ namespace Gen
 {
     class Gen
     {
-        const string csTempleteFileName = "templete/templete.cs.templete";
+        const string csTempleteFileName = "templete/Solution.cs.templete";
         const string readmeTempleteFileName = "templete/Readme.md.templete";
         static bool ForceCreate = true;
 
