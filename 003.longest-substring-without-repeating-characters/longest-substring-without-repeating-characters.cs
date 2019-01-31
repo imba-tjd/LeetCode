@@ -49,7 +49,7 @@ namespace LongestSubstringWithoutRepeatingCharacters
             return ans;
         }
     }
-    public abstract class UnitTest
+    public abstract class MultiTest
     {
         protected abstract ISolution GetSo { get; }
 
@@ -69,6 +69,6 @@ namespace LongestSubstringWithoutRepeatingCharacters
             Assert.Equal(length, result);
         }
     }
-    public class Test1 : UnitTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : UnitTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
 }
