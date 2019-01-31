@@ -3,7 +3,8 @@ using Xunit;
 
 namespace LongestSubstringWithoutRepeatingCharacters
 {
-    class Solution
+    public interface ISolution { int LengthOfLongestSubstring(string s); }
+    class Solution : ISolution
     {
         int[] dic = new int[127];
         public int LengthOfLongestSubstring(string s)
@@ -26,8 +27,11 @@ namespace LongestSubstringWithoutRepeatingCharacters
             return Math.Max(longest, to - from);
         }
 
-        // Not My Solution
-        public int LengthOfLongestSubstring2(string s)
+
+    }
+    class Solution2 : ISolution // Not My Solution
+    {
+        public int LengthOfLongestSubstring(string s)
         {
             int n = s.Length, ans = 0;
             int[] index = new int[128]; // current index of character
@@ -45,8 +49,10 @@ namespace LongestSubstringWithoutRepeatingCharacters
             return ans;
         }
     }
-    public class UnitTest
+    public abstract class UnitTest
     {
+        protected abstract ISolution GetSo { get; }
+
         [Theory]
         [InlineData("abcabcbb", 3)]
         [InlineData("bbbbb", 1)]
@@ -54,15 +60,15 @@ namespace LongestSubstringWithoutRepeatingCharacters
         [InlineData("au", 2)]
         [InlineData("dvdf", 3)]
         [InlineData("abba", 2)]
-        [InlineData(" ", 1), InlineData("", 0)]
-        void Test(string s, int length)
+        [InlineData(" ", 1)]
+        [InlineData("", 0)]
+        public void Test(string s, int length)
         {
-            var solution = new Solution();
-            int result1 = solution.LengthOfLongestSubstring(s);
-            Assert.Equal(length, result1);
-
-            int result2 = solution.LengthOfLongestSubstring2(s);
-            Assert.Equal(length, result2);
+            var so = GetSo;
+            int result = so.LengthOfLongestSubstring(s);
+            Assert.Equal(length, result);
         }
     }
+    public class Test1 : UnitTest { protected override ISolution GetSo => new Solution(); }
+    public class Test2 : UnitTest { protected override ISolution GetSo => new Solution2(); }
 }
