@@ -4,7 +4,8 @@ using Xunit;
 
 namespace ReverseInteger
 {
-    class Solution
+    public interface ISolution { int Reverse(int x); }
+    public class Solution : ISolution
     {
         public int Reverse(int x)
         {
@@ -23,7 +24,10 @@ namespace ReverseInteger
             }
             return result;
         }
-        public int Reverse2(int x)
+    }
+    public class Solution2 : ISolution // 字符串反转
+    {
+        public int Reverse(int x)
         {
             if (x == int.MinValue)
                 return 0;
@@ -36,22 +40,24 @@ namespace ReverseInteger
         }
     }
 
-    public class UnitTest
+    public abstract class UnitTest
     {
+        protected abstract ISolution GetSo { get; }
+
         [Theory]
         [InlineData(123, 321)]
         [InlineData(-123, -321)]
         [InlineData(120, 21)]
         [InlineData(1534236469, 0)]
         [InlineData(-2147483648, 0)]
-        void Test(int input, int expect)
+        public void Test(int input, int expect)
         {
-            var solution = new Solution();
-            int result = solution.Reverse(input);
+            var so = GetSo;
+            int result = so.Reverse(input);
             Assert.Equal(expect, result);
-
-            int result2 = solution.Reverse2(input);
-            Assert.Equal(expect, result2);
         }
     }
+
+    public class Test1 : UnitTest { protected override ISolution GetSo => new Solution(); }
+    public class Test2 : UnitTest { protected override ISolution GetSo => new Solution(); }
 }
