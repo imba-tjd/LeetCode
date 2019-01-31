@@ -3,10 +3,10 @@ using Xunit;
 
 namespace <NS>
 {
-    public interface ISolution {  }
+    public interface ISolution { <Fun> }
     public class Solution : ISolution
     {
-        public
+        <Fun>
     }
 
     // public abstract class UnitTest<T> where T : ISolution, new()
@@ -18,7 +18,7 @@ namespace <NS>
     //     void Test(int input, int expect)
     //     {
     //         so = new T();
-    //         int result = so.
+    //         int result = so.<Fun>
     //         Assert.Equal(expect, result);
     //     }
     // }
