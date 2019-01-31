@@ -13,7 +13,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <Compile Include="**/*.cs" Exclude="templete/**;bin/**;obj/**;**/*.user; **/*.*proj; **/*.sln; **/*.vssscc" />
+    <Compile Include="**/*.cs" Exclude="templete/**;$(DefaultItemExcludes)" />
   </ItemGroup>
 
 </Project>
