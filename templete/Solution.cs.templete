@@ -1,0 +1,27 @@
+using System;
+using Xunit;
+
+namespace <NS>
+{
+    public interface ISolution { <Fun> }
+    class Solution : ISolution
+    {
+        <Fun>
+    }
+
+    // public abstract class UnitTest
+    // {
+    //     protected abstract ISolution GetSo { get; }
+    //
+    //     [Theory]
+    //     [InlineData()]
+    //     public void Test(int input, int expect)
+    //     {
+    //         var so = GetSo;
+    //         int result = so.<Fun>
+    //         Assert.Equal(expect, result);
+    //     }
+    // }
+    // public class Test1 : UnitTest { override protected ISolution GetSo => new Solution(); }
+    // public class Test2 : UnitTest { override protected ISolution GetSo => new Solution2(); }
+}
