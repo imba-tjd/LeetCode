@@ -7,7 +7,7 @@ namespace Gen
     {
         const string csTempleteFileName = "templete/Solution.cs.templete";
         const string readmeTempleteFileName = "templete/Readme.md.templete";
-        static bool ForceCreate = true;
+        static bool ForceCreate = false;
 
         static int Main(string[] args) // 0. Two Sum
         {
@@ -19,17 +19,19 @@ namespace Gen
             else if (args[0] == "/f")
                 ForceCreate = true;
 
-            string[] body = new string[args.Length - 1]; // Two Sum
-            CopyStringArray(args, 1, body);
+            // string[] body = new string[args.Length - 1 - (ForceCreate ? 1 : 0)]; // Two Sum
+            // CopyStringArray(args, 1 + (ForceCreate ? 1 : 0), body);
+            string[] body = SubArray(args, ForceCreate ? 2 : 1);
 
             string csFileName = string.Join("-", body).ToLowerInvariant(); // two-sum
-            string folderName = args[0] + csFileName; // 0.two-sum
+            string folderName = args[ForceCreate ? 1 : 0] + csFileName; // 0.two-sum
             string ns = string.Join("", body); // TwoSum
 
-            if(ForceCreate)
-                Directory.Delete(folderName);
-            else if (Directory.Exists(folderName))
-                throw new IOException(folderName + " already exists!");
+            if (Directory.Exists(folderName))
+                if (ForceCreate)
+                    Directory.Delete(folderName, true); // 如果目标不存在会抛异常
+                else
+                    throw new IOException(folderName + " already exists!");
             Directory.CreateDirectory(folderName);
             string csFileRealPath = Path.Combine(folderName, csFileName + ".cs"); // two-sum.cs
             string readmeFileRealPath = Path.Combine(folderName, "Readme.md");
@@ -48,10 +50,17 @@ namespace Gen
 
             return 0;
         }
-        static void CopyStringArray(string[] src, int from, string[] dest)
+        // static void CopyStringArray(string[] src, int from, string[] dest)
+        // {
+        //     for (int i = 0; i < src.Length - from; i++)
+        //         dest[i] = src[i + from];
+        // }
+        static T[] SubArray<T>(T[] src, int index) => SubArray(src, index, src.Length - index);
+        static T[] SubArray<T>(T[] src, int index, int length)
         {
-            for (int i = 0; i < src.Length - from; i++)
-                dest[i] = src[i + from];
+            T[] result = new T[length];
+            Array.Copy(src, index, result, 0, length);
+            return result;
         }
     }
 }
