@@ -1,17 +1,22 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace <NS>
 {
-    public interface ISolution { <Fun> }
+    public interface ISolution { <Fun>; }
     class Solution : ISolution
     {
-        <Fun>
+        public <Fun>
+        {
+
+        }
     }
 
-    // public abstract class MultiTest
+    // abstract
+    // public class MultiTest
     // {
-    //     protected abstract ISolution GetSo { get; }
+    //     protected abstract ISolution GetSo => new Solution();
     //
     //     [Theory]
     //     [InlineData()]
