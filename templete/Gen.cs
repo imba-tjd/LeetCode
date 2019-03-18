@@ -5,27 +5,26 @@ namespace Gen
 {
     class Gen
     {
-        const string csTempleteFileName = "templete/Solution.cs.templete";
-        const string readmeTempleteFileName = "templete/Readme.md.templete";
+        const string csFileTempletePath = "templete/Solution.cs.templete";
+        const string readmeFileTempletePath = "templete/Readme.md.templete";
+        const string urlBase = "https://leetcode.com/problems/";
         static bool ForceCreate = false;
 
         static int Main(string[] args) // 0. Two Sum
         {
             if (args.Length == 0 || args[0] == "/h")
             {
-                Console.WriteLine("Usage: `./Gen.exe 0. Two Sum`");
+                Console.WriteLine("Usage: `./Gen.exe [/f] 0. Two Sum`");
                 return 1;
             }
             else if (args[0] == "/f")
                 ForceCreate = true;
 
-            // string[] body = new string[args.Length - 1 - (ForceCreate ? 1 : 0)]; // Two Sum
-            // CopyStringArray(args, 1 + (ForceCreate ? 1 : 0), body);
-            string[] body = SubArray(args, ForceCreate ? 2 : 1);
+            string index = args[ForceCreate ? 1 : 0];
+            string[] body = SubArray(args, ForceCreate ? 2 : 1); // Two Sum
 
             string csFileName = string.Join("-", body).ToLowerInvariant(); // two-sum
-            string folderName = args[ForceCreate ? 1 : 0] + csFileName; // 0.two-sum
-            string ns = string.Join("", body); // TwoSum
+            string folderName = index + csFileName; // 0.two-sum
 
             if (Directory.Exists(folderName))
                 if (ForceCreate)
@@ -36,31 +35,30 @@ namespace Gen
             string csFileRealPath = Path.Combine(folderName, csFileName + ".cs"); // two-sum.cs
             string readmeFileRealPath = Path.Combine(folderName, "Readme.md");
 
-            string csFileContent = File.ReadAllText(csTempleteFileName);
-            csFileContent = csFileContent.Replace("<NS>", ns);
-            string readmeFileContent = File.ReadAllText(readmeTempleteFileName);
-            readmeFileContent = readmeFileContent.Replace("<Problem>", string.Join(" ", args));
+            string ns = string.Join("", body); // TwoSum
+            string csFileContent = File.ReadAllText(csFileTempletePath).Replace("<NS>", ns);
+            string readmeFileContent = File.ReadAllText(readmeFileTempletePath)
+                .Replace("<Problem>", index + " " + string.Join(" ", body))
+                .Replace("<URL>", urlBase + csFileName);
 
-            if (File.Exists(csFileRealPath))
-                throw new IOException(csFileRealPath + " already exists!");
-            File.WriteAllText(csFileRealPath, csFileContent);
-            if (File.Exists(readmeFileRealPath))
-                throw new IOException(readmeFileRealPath + " already exists!");
-            File.WriteAllText(readmeFileRealPath, readmeFileContent);
+            WriteContent(csFileRealPath, csFileContent);
+            WriteContent(readmeFileRealPath, readmeFileContent);
 
             return 0;
         }
-        // static void CopyStringArray(string[] src, int from, string[] dest)
-        // {
-        //     for (int i = 0; i < src.Length - from; i++)
-        //         dest[i] = src[i + from];
-        // }
+
         static T[] SubArray<T>(T[] src, int index) => SubArray(src, index, src.Length - index);
         static T[] SubArray<T>(T[] src, int index, int length)
         {
             T[] result = new T[length];
             Array.Copy(src, index, result, 0, length);
             return result;
+        }
+        static void WriteContent(string path, string content)
+        {
+            if (File.Exists(path))
+                throw new IOException(path + " already exists!");
+            File.WriteAllText(path, content);
         }
     }
 }
