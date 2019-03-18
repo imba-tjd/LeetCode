@@ -10,11 +10,11 @@ namespace Gen
         const string urlBase = "https://leetcode.com/problems/";
         static bool ForceCreate = false;
 
-        static int Main(string[] args) // 0. Two Sum
+        static int Main(string[] args) // 1. Two Sum
         {
             if (args.Length == 0 || args[0] == "/h")
             {
-                Console.WriteLine("Usage: `./Gen.exe [/f] 0. Two Sum`");
+                Console.WriteLine("Usage: `./Gen.exe [/f] 1. Two Sum`");
                 return 1;
             }
             else if (args[0] == "/f")
@@ -24,7 +24,7 @@ namespace Gen
             string[] body = SubArray(args, ForceCreate ? 2 : 1); // Two Sum
 
             string csFileName = string.Join("-", body).ToLowerInvariant(); // two-sum
-            string folderName = index + csFileName; // 0.two-sum
+            string folderName = index.PadLeft(4, '0') + csFileName; // 001.two-sum
 
             if (Directory.Exists(folderName))
                 if (ForceCreate)
