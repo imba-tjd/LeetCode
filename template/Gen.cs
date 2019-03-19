@@ -20,7 +20,7 @@ namespace Gen
             else if (args[0] == "/f")
                 ForceCreate = true;
 
-            string index = args[ForceCreate ? 1 : 0];
+            string index = args[ForceCreate ? 1 : 0]; // 1.
             string[] body = SubArray(args, ForceCreate ? 2 : 1); // Two Sum
 
             string csFileName = string.Join("-", body).ToLowerInvariant(); // two-sum
