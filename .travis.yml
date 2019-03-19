@@ -3,6 +3,15 @@ mono: none
 dotnet: 2.2
 dist: xenial
 
-script:
- - cd templete && dotnet new console && rm Program.cs && dotnet build && cd ..
- - dotnet test
+jobs:
+  include:
+    - stage: "Build Templete Generator"
+    - script:
+      - cd templete
+      - dotnet new console
+      - rm Program.cs
+      - dotnet build
+    - stage: "Build LeetCode && Test"
+    - script:
+      - dotnet bulid
+      - dotnet test
