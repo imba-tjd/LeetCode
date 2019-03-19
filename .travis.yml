@@ -6,13 +6,11 @@ dist: xenial
 jobs:
   include:
     - stage: "Build"
-      name: "Build Templete Generator"
       script:
         - cd templete
         - dotnet new console
         - rm Program.cs
         - dotnet build
-      name: "Build LeetCode"
       script:
         - dotnet build
         - dotnet test
