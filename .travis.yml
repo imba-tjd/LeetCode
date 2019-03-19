@@ -11,6 +11,6 @@ jobs:
         - dotnet new console
         - rm Program.cs
         - dotnet build
-      script:
-        - dotnet build
-        - dotnet test
+    - script:
+      - dotnet build
+      - dotnet test
