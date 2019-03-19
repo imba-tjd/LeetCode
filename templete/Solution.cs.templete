@@ -16,7 +16,7 @@ namespace <NS>
     // abstract
     // public class MultiTest
     // {
-    //     protected abstract ISolution GetSo => new Solution();
+    //     protected virtual ISolution GetSo => new Solution();
     //
     //     [Theory]
     //     [InlineData()]
