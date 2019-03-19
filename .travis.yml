@@ -5,15 +5,12 @@ dist: xenial
 
 jobs:
   include:
-    - stage: "Initialize"
-      script: dotnet --version
-    - stage: "Build Templete Generator"
+    - stage: "Build"
       script:
         - cd templete
         - dotnet new console
         - rm Program.cs
         - dotnet build
-    - stage: "Build LeetCode && Test"
       script:
         - dotnet bulid
         - dotnet test
