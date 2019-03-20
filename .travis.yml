@@ -1,23 +1,20 @@
 language: csharp
 dist: xenial
 
-matirx:
-  include:
-    - dotnet: 2.2
-      mono: none
-    - mono: latest
-
 jobs:
   include:
     - stage: "Build"
       name: ".NET Core Bulid"
+      dotnet: 2.2
+      mono: none
       script:
         - cd templete && dotnet new console && rm Program.cs && dotnet build && cd ..
         - dotnet test
     - name: "Mono Build"
+      mono: latest
       install:
-        - nuget restore solution-name.sln
+        - nuget restore
         - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
       script:
-        - msbuild /p:Configuration=Release solution-name.sln
+        - msbuild /p:Configuration=Release
         - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/LeetCode.dll
