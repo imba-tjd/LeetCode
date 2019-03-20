@@ -1,7 +1,7 @@
 language: csharp
 dist: xenial
 notifications:
-  emial: none
+  emial: false
 
 jobs:
   include:
