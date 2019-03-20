@@ -21,6 +21,5 @@ jobs:
         - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
       script:
         - msbuild /p:Configuration=Release
-        # - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/LeetCode.dll
-        - find . -name LeetCode.dll
-        - locate LeetCode.dll
+        - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/netcoreapp2.1/LeetCode.dll
+
