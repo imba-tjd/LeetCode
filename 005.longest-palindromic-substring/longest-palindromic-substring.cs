@@ -21,7 +21,7 @@ namespace LongestPalindromicSubstring
                 }
             return result.ToString();
         }
-        public bool IsPalindromicString(ReadOnlySpan<char> s)
+        internal bool IsPalindromicString(ReadOnlySpan<char> s)
         {
             if (s.Length == 1)
                 return true;
@@ -49,7 +49,7 @@ namespace LongestPalindromicSubstring
             }
             return str.ToString();
         }
-        public ReadOnlySpan<char> Expand(ReadOnlySpan<char> s, int from, int to) // 后两者表示将要评估的位置
+        internal ReadOnlySpan<char> Expand(ReadOnlySpan<char> s, int from, int to) // 后两者表示将要评估的位置
         {
             while (from >= 0 && to <= s.Length - 1)
             {
