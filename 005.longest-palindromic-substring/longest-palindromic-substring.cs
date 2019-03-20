@@ -52,13 +52,13 @@ namespace LongestPalindromicSubstring
         public ReadOnlySpan<char> Expand(ReadOnlySpan<char> s, int from, int to) // 后两者表示将要评估的位置
         {
             while (from >= 0 && to <= s.Length - 1)
-                if (s[from] == s[to])
-                {
-                    from--;
-                    to++;
-                }
-                else
+            {
+                if (s[from] != s[to])
                     break;
+                from--;
+                to++;
+            }
+
             return from + 1 == to ? "" : s.Slice(from + 1, to - from - 1);
         }
     }
