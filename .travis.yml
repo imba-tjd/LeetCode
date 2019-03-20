@@ -1,5 +1,7 @@
 language: csharp
 dist: xenial
+notifications:
+  - emial: none
 
 jobs:
   include:
@@ -12,9 +14,13 @@ jobs:
         - dotnet test
     - name: "Mono Build"
       mono: latest
+      before_install:
+        - sed -i 's/netcoreapp2.2/netcoreapp2.1/' LeetCode.csproj
       install:
         - nuget restore LeetCode.csproj
         - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
       script:
         - msbuild /p:Configuration=Release
-        - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/LeetCode.dll
+        # - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/LeetCode.dll
+        find . -name LeetCode.dll
+        locate LeetCode.dll
