@@ -23,7 +23,7 @@ namespace <NS>
     //     public void Test(int input, int expect)
     //     {
     //         var so = GetSo;
-    //         int result = so
+    //         var result = so
     //         Assert.Equal(expect, result);
     //     }
     // }
