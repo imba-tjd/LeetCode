@@ -19,8 +19,9 @@ jobs:
       install:
         - nuget restore LeetCode.csproj
         # - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
-        - nuget install xunit.runner.console -Version 2.4.1 -OutputDirectory testrunner
+        - nuget install xunit.runner.console
+        # - nuget install Microsoft.NET.Sdk.Functions
       script:
-        - msbuild /p:Configuration=Release
-        - mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./bin/Release/netcoreapp2.1/LeetCode.dll
+        - msbuild /p:Configuration=Debug
+        - mono ./xunit.runner.console.2.4.1/tools/netcoreapp2.0/xunit.console.dll ./bin/Debug/netcoreapp2.1/LeetCode.dll
 
