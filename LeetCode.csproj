@@ -15,7 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="NETStandard.Library" Version="2.*" />
+    <!-- <PackageReference Include="NETStandard.Library" Version="2.*" /> -->
     <Compile Include="**/*.cs" Exclude="templete/**;$(DefaultItemExcludes)" />
   </ItemGroup>
 

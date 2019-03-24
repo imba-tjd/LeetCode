@@ -16,6 +16,7 @@ jobs:
       mono: latest
       before_install:
         - sed -i 's/netcoreapp2.2/netcoreapp2.1/' LeetCode.csproj
+        - sed -i 'i19 <PackageReference Include="System.Memory" />' LeetCode.csproj
       install:
         - nuget restore LeetCode.csproj
         # - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
@@ -23,6 +24,7 @@ jobs:
       script:
         # - msbuild /p:Configuration=Debug
         # - mono ./xunit.runner.console.2.4.1/tools/netcoreapp2.0/xunit.console.dll ./bin/Debug/netcoreapp2.1/LeetCode.dll
+        - cat LeetCode.csproj
         - msbuild /t:Publish
         - mono ./xunit.runner.console.2.4.1/tools/net472/xunit.console.exe ./bin/Debug/netcoreapp2.1/publish/LeetCode.dll
 
