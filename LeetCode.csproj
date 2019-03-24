@@ -9,13 +9,13 @@
   <!-- <TestAssemblies Include="**/bin/Release/*.tests.dll" /> -->
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Runtime.Loader" Version="4.0.0" />
+    <PackageReference Include="NETStandard.Library" Version="2.*" />
     <Compile Include="**/*.cs" Exclude="templete/**;$(DefaultItemExcludes)" />
   </ItemGroup>
 
