@@ -15,7 +15,7 @@ jobs:
     - name: "Mono Build"
       mono: latest
       before_install:
-        # - sed -i 's/netcoreapp2.2/netcoreapp2.1/' LeetCode.csproj
+        - sed -i 's/netcoreapp2.2/netcoreapp2.1/' LeetCode.csproj
       install:
         - nuget restore LeetCode.csproj
         # - nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
