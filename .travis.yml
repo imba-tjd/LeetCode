@@ -15,7 +15,7 @@ jobs:
     - name: "Mono Build"
       mono: latest
       before_install:
-        - sed -i 's/netcoreapp2.2/netcoreapp2.1.505/' LeetCode.csproj
+        - sed -i 's/netcoreapp2.2/netcoreapp2.1/' LeetCode.csproj
         # - sed -i '19i <PackageReference Include="System.Memory" Version="4.1.0.0"/>' LeetCode.csproj
       install:
         - nuget restore LeetCode.csproj
@@ -25,6 +25,6 @@ jobs:
         # - msbuild /p:Configuration=Debug
         # - mono ./xunit.runner.console.2.4.1/tools/netcoreapp2.0/xunit.console.dll ./bin/Debug/netcoreapp2.1/LeetCode.dll
         - cat LeetCode.csproj
-        - msbuild /t:Publish
+        - /usr/bin/msbuild /t:Publish
         - mono ./xunit.runner.console.2.4.1/tools/net472/xunit.console.exe ./bin/Debug/netcoreapp2.1/publish/LeetCode.dll
 
