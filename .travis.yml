@@ -4,5 +4,5 @@ dotnet: 2.2
 dist: xenial
 
 script:
- - cd templete && dotnet new console && rm Program.cs && dotnet build && cd ..
+ - cd template && dotnet new console && rm Program.cs && dotnet build && cd ..
  - dotnet test
