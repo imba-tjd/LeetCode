@@ -5,8 +5,8 @@ namespace Gen
 {
     class Gen
     {
-        const string csFileTempletePath = "templete/Solution.cs.templete";
-        const string readmeFileTempletePath = "templete/Readme.md.templete";
+        const string csFileTemplatePath = "template/Solution.cs.template";
+        const string readmeFileTemplatePath = "template/Readme.md.template";
         const string urlBase = "https://leetcode.com/problems/";
         static bool ForceCreate = false;
 
@@ -36,8 +36,8 @@ namespace Gen
             string readmeFileRealPath = Path.Combine(folderName, "Readme.md");
 
             string ns = string.Join("", body); // TwoSum
-            string csFileContent = File.ReadAllText(csFileTempletePath).Replace("<NS>", ns);
-            string readmeFileContent = File.ReadAllText(readmeFileTempletePath)
+            string csFileContent = File.ReadAllText(csFileTemplatePath).Replace("<NS>", ns);
+            string readmeFileContent = File.ReadAllText(readmeFileTemplatePath)
                 .Replace("<Problem>", index + " " + string.Join(" ", body))
                 .Replace("<URL>", urlBase + csFileName);
 

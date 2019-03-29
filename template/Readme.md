@@ -1,4 +1,4 @@
-# Code Templete
+# Code Template
 
 Try to DRY creating practice files.
 
