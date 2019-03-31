@@ -4,5 +4,5 @@ dotnet: 2.2
 dist: xenial
 
 script:
- - cd template && dotnet new xunit && rm UnitTest1.cs && dotnet test && cd ..
- - dotnet test
+ - cd template && dotnet new xunit && dotnet test
+ - cd .. && dotnet test
