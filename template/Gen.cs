@@ -38,10 +38,7 @@ namespace Gen
 
             string csFileContent = File.ReadAllText(csTemplatePath).Replace("<NS>", ns);
             string readmeFileContent = File.ReadAllText(readmeTemplatePath)
-                .Replace("<Problem>",
-                    serialNum +
-                    string.Join(" ", body)
-                )
+                .Replace("<Problem>", string.Join(" ", Args))
                 .Replace("<URL>", urlBase + urlSuffix + "/");
 
             WriteContent(csFilePath, csFileContent);
