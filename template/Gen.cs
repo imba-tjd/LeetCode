@@ -187,4 +187,74 @@ namespace Gen
         }
     }
 }
+#if DEBUG
+namespace Gen.Test
+{
+    using System.Collections.Generic;
+    using Xunit;
+    using System.Reflection;
+    public class ArgumentContextTest
+    {
+        static Dictionary<string, string> BodyTestCases = new Dictionary<string, string>()
+        {
+            { "Sqrt(x)", "sqrtx" },
+            { "Pow(x, n)", "powx-n" },
+            { "Implement strStr()", "implement-strstr" },
+            { "String to Integer (atoi)", "string-to-integer-atoi" },
+            { "Implement Trie (Prefix Tree)", "implement-trie-prefix-tree" }
+        };
 
+        public static IEnumerable<object[]> TestData()
+        {
+            foreach (var item in BodyTestCases)
+                yield return new object[] { item.Key.Split(' '), item.Value };
+        }
+
+        [Theory]
+        [MemberData(nameof(TestData))]
+        public void BodyTest(string[] args, string expect)
+        {
+            var context = new ArgumentContext(args);
+            string[] result = context.ParseBody();
+            string result2 = string.Join('-', result).ToLowerInvariant();
+            Assert.Equal(expect, result2);
+        }
+    }
+    public class ErrorTest
+    {
+        static Dictionary<string, ErrorType> TestCases = new Dictionary<string, ErrorType>()
+        {
+            { "asdf", ErrorType.Normal },
+            { "/f asdf", ErrorType.Normal },
+            { "/f 1. asdf", ErrorType.Normal },
+            { "1. asdf", ErrorType.Normal },
+            { "/h", ErrorType.ShowUsage },
+
+            { "/a", ErrorType.InvalidFlag },
+            { "/", ErrorType.InvalidFlag },
+            { "1asdf", ErrorType.InvalidSerialNumber },
+            { "/f 1asdf", ErrorType.InvalidSerialNumber },
+            { "1.", ErrorType.MissingBody },
+            { "/f", ErrorType.MissingBody },
+            { "/f 1.", ErrorType.MissingBody },
+        };
+
+        public static IEnumerable<object[]> TestData()
+        {
+            foreach (var item in TestCases)
+                yield return new object[] { item.Key.Split(' '), (int)item.Value };
+        }
+
+        [Theory]
+        [MemberData(nameof(TestData))]
+        public void Test(string[] args, int expect)
+        {
+            var gen = new Generator(args);
+            var fun = gen.GetType().GetMethod("HandleArgs", BindingFlags.NonPublic | BindingFlags.Instance);
+            Assert.NotNull(fun);
+            int result = (int)fun.Invoke(gen, new object[] { null, null, null });
+            Assert.Equal(expect, result);
+        }
+    }
+}
+#endif
