@@ -2,6 +2,8 @@ language: csharp
 mono: none
 dotnet: 2.2
 dist: xenial
+notifications:
+  email: false
 
 script:
  - cd template && dotnet new console && rm Program.cs && dotnet build && cd ..
