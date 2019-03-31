@@ -3,10 +3,12 @@ using System.IO;
 
 namespace Gen
 {
+#if !DEBUG
     class Program
     {
         static void Main(string[] args) => new Generator(args).Run();
     }
+#endif
     class Generator
     {
         const string csTemplatePath = "template/Solution.cs.template";
@@ -62,9 +64,9 @@ namespace Gen
                 return (int)cont.ErrorCode;
             }
 
-            serialNumber = default;
-            body = default;
-            isForceCreate = default;
+            serialNumber = null;
+            body = null;
+            isForceCreate = false;
             var context = new ArgumentContext(Args);
 
             bool? fc = context.ParseForceCreate();
