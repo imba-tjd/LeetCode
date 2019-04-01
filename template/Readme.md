@@ -2,9 +2,15 @@
 
 Try to DRY creating practice files.
 
-* Usage: `./Gen.exe 0. Two Sum`
-* Features:
-    1. Create `0.two-sum` folder.
-    2. Create `Readme.md` and produce *header*.
-    3. Create `two-sum.cs` and produce *namespace* name.
-    4. /h for help and /f to force create.
+* Usage: `./Gen.exe [/f] 0. Two Sum`
+
+## Test Cases
+
+Problem|URL Suffix
+-|-
+Sqrt(x)|sqrtx
+Pow(x, n)|powx-n
+Implement strStr()|implement-strstr
+String to Integer (atoi)|string-to-integer-atoi
+Implement Trie (Prefix Tree)|implement-trie-prefix-tree
+

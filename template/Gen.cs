@@ -23,11 +23,11 @@ namespace Gen
             if (0 != HandleArgs(out IsForceCreate, out string serialNum, out string[] body))
                 return 1;
 
-            string urlSuffix = string.Join("-", body).ToLowerInvariant(); // two-sum
-            string folderName = serialNum?.PadLeft(4, '0') + urlSuffix; // 001.two-sum，序号不存在时不会有pading的0
-            string csFilePath = Path.Combine(folderName, urlSuffix + ".cs"); // two-sum.cs
+            string urlSuffix = string.Join("-", body).ToLowerInvariant(); // two-sum-extra
+            string folderName = serialNum?.PadLeft(4, '0') + urlSuffix; // 001.two-sum-extra，序号不存在时不会有pading的0
+            string csFilePath = Path.Combine(folderName, urlSuffix + ".cs"); // two-sum-extra.cs
             string readmeFilePath = Path.Combine(folderName, "Readme.md");
-            string ns = string.Join("", body); // TwoSum
+            string ns = string.Join("", body); // TwoSumextra，需要自己把extra删掉
 
             if (Directory.Exists(folderName))
                 if (IsForceCreate)
