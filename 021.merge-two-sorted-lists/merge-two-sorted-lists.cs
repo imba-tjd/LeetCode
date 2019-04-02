@@ -10,8 +10,14 @@ namespace MergeTwoSortedLists
         public int val;
         public ListNode next;
         public ListNode(int x) { val = x; }
-        public ListNode(IEnumerable<int> source) =>
-            (val, next) = (source.First(), source.Skip(1).Any() ? new ListNode(source.Skip(1)) : null);
+        // public ListNode(IEnumerable<int> source) =>
+        //     (val, next) = (source.First(), source.Skip(1).Any() ? new ListNode(source.Skip(1)) : null);
+        public ListNode(IEnumerable<int> source) : this(source.First())
+        {
+            var rest = source.Skip(1);
+            if (rest.Any())
+                next = new ListNode(rest);
+        }
         public IEnumerable<int> AsEnumerable()
         {
             yield return val;
@@ -54,8 +60,8 @@ namespace MergeTwoSortedLists
         {
             var l1 = new ListNode(l1a);
             var l2 = new ListNode(l2a);
-            // var expect = new ListNode(expecta);
             var so = GetSo;
+
             var result = so.MergeTwoLists(l1, l2).AsEnumerable().ToArray();
 
             for (int i = 0; i < expect.Length; i++)
