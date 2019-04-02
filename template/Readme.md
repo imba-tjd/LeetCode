@@ -13,4 +13,3 @@ Pow(x, n)|powx-n
 Implement strStr()|implement-strstr
 String to Integer (atoi)|string-to-integer-atoi
 Implement Trie (Prefix Tree)|implement-trie-prefix-tree
-
