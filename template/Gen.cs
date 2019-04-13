@@ -96,7 +96,7 @@ namespace Gen
         static System.Collections.Generic.Dictionary<ErrorType, string> ErrorMessages =
             new System.Collections.Generic.Dictionary<ErrorType, string>()
             {
-                {ErrorType.ShowUsage, "Usage: ./Gen.exe [/f] 1. Two Sum"},
+                {ErrorType.ShowUsage, "Usage: Gen.exe [/f] 1. Two Sum"},
                 {ErrorType.InvalidFlag, "Invalid Flag: "},
                 {ErrorType.InvalidSerialNumber, "Invalid Serial Number: "},
                 {ErrorType.MissingBody, "Missing Question Body!"}
