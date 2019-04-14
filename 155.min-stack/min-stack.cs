@@ -4,17 +4,25 @@ using Xunit;
 
 namespace MinStack
 {
-    class Cache
+    public interface ISolution
     {
-        public Cache(int value) => (this.value, times) = (value, 1);
-        public int value;
-        public int times;
+        void Push(int x);
+        void Pop();
+        int Top();
+        int GetMin();
     }
-    public class MinStack
+
+    public class Solution : ISolution
     {
+        class Cache
+        {
+            public Cache(int value) => (this.value, times) = (value, 1);
+            public int value;
+            public int times;
+        }
         Stack<int> stack = new Stack<int>();
         Stack<Cache> cache = new Stack<Cache>();
-        public MinStack() => cache.Push(new Cache(int.MaxValue));
+        public Solution() => cache.Push(new Cache(int.MaxValue));
         public void Push(int x)
         {
             stack.Push(x);
@@ -38,12 +46,50 @@ namespace MinStack
         public int GetMin() => cache.Peek().value;
     }
 
-    public class UnitTest
+    class Solution2 : ISolution
     {
+        int min = int.MaxValue;
+        int times = 1;
+        Stack<int> stack = new Stack<int>();
+        public void Push(int x)
+        {
+            if (x == min)
+                times++;
+            else if (x < min)
+            {
+                stack.Push(min);
+                stack.Push(times);
+                min = x;
+                times = 1;
+            }
+            stack.Push(x);
+        }
+        public void Pop()
+        {
+            int val = stack.Pop();
+            if (val == min)
+                if (times != 1)
+                    times--;
+                else
+                {
+                    times = stack.Pop();
+                    min = stack.Pop();
+                }
+        }
+        public int Top() => stack.Peek();
+        public int GetMin() => min;
+    }
+
+    abstract
+    public class MultiTest
+    {
+        protected virtual ISolution GetSo => new Solution2();
+
         [Fact]
         public void Test()
         {
-            MinStack minStack = new MinStack();
+            var minStack = GetSo;
+
             minStack.Push(-2);
             minStack.Push(0);
             minStack.Push(-3);
@@ -52,5 +98,19 @@ namespace MinStack
             Assert.Equal(0, minStack.Top());
             Assert.Equal(-2, minStack.GetMin());
         }
+        [Fact]
+        public void Test2()
+        {
+            var minStack = GetSo;
+
+            minStack.Push(0);
+            minStack.Push(1);
+            minStack.Push(0);
+            Assert.Equal(0, minStack.GetMin());
+            minStack.Pop();
+            Assert.Equal(0, minStack.GetMin());
+        }
     }
+    public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
+    public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
 }
