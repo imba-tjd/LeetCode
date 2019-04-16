@@ -25,6 +25,8 @@ namespace LCDS
                 foreach (var e in ln.next.AsEnumerable())
                     yield return e;
         }
+        // ListNode to int[]
+        public static int[] ToArray(this ListNode ln) => ln.AsEnumerable().ToArray();
 
         // IEnumerable<int> to ListNode
         // 之前写的另一种实现：
@@ -51,7 +53,7 @@ namespace LCDS
         void AsEnumerableTest(int[] arr)
         {
             var ln = arr.ToListNode();
-            var result = ln.AsEnumerable().ToArray();
+            var result = ln.ToArray();
             Assert.NotNull(result);
             Assert.NotEmpty(result);
 

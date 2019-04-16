@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Xunit;
-using System.Linq;
 using LCDS;
 
 namespace MergeTwoSortedLists
@@ -42,7 +41,7 @@ namespace MergeTwoSortedLists
             var l2 = l2a.ToListNode();
             var so = GetSo;
 
-            var result = so.MergeTwoLists(l1, l2).AsEnumerable().ToArray();
+            var result = so.MergeTwoLists(l1, l2).ToArray();
 
             for (int i = 0; i < expect.Length; i++)
                 Assert.Equal(expect[i], result[i]);
