@@ -53,18 +53,14 @@ namespace BinarySearch
         }
     }
 
-    // abstract
+    abstract
     public class MultiTest
     {
         protected virtual ISolution GetSo => new Solution2();
 
         [Theory]
-        [
-            InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 9, 4),
-        InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 2, -1),
-        InlineData(new int[0], 1, -1),
-        InlineData(new[] { 1 }, 1, 0)
-        ]
+        [InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 9, 4), InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 2, -1),
+        InlineData(new int[0], 1, -1), InlineData(new[] { 1 }, 1, 0)]
         public void Test(int[] input, int target, int expect)
         {
             var so = GetSo;
@@ -72,6 +68,6 @@ namespace BinarySearch
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
+    public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
 }
