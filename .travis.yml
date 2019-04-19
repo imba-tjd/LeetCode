@@ -5,4 +5,5 @@ dist: xenial
 
 script:
  - cd template && dotnet new xunit && dotnet test
- - cd .. && dotnet test
+ - cd .. && sed -i 's/netcoreapp3.0/netcoreapp2.2/' LeetCode.csproj
+ - dotnet test
