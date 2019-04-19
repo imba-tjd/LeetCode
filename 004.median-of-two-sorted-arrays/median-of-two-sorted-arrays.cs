@@ -3,29 +3,25 @@ using Xunit;
 
 namespace MedianofTwoSortedArrays
 {
-    class Solution
+    public interface ISolution { double FindMedianSortedArrays(int[] nums1, int[] nums2); }
+
+    abstract class Solution : ISolution
     {
+        protected abstract void Move(int[] a, ref int ai, int[] b, ref int bi, int half);
         public double FindMedianSortedArrays(int[] nums1, int[] nums2)
         {
-            int a = 0, b = 0, half = (nums1.Length + nums2.Length - 1) / 2;
+            int ai = 0, bi = 0, half = (nums1.Length + nums2.Length - 1) / 2;
 
-            // 注释掉的能略微优化一点
-            // while (a < nums1.Length && b < nums2.Length && a + b < half)
-            //     if (nums1[a] < nums2[b]) a++;
-            //     else b++;
-            // while (a < nums1.Length && a + b < half)
-            //     a++;
-            // while (b < nums2.Length && a + b < half)
-            //     b++;
-            while (--half >= 0)
-                ExtractMin(nums1, ref a, nums2, ref b);
+            Move(nums1, ref ai, nums2, ref bi, half);
 
-            double median = ExtractMin(nums1, ref a, nums2, ref b);
+            double median = ExtractMin(nums1, ref ai, nums2, ref bi);
             if ((nums1.Length + nums2.Length) % 2 == 0)
-                median = (median + ExtractMin(nums1, ref a, nums2, ref b)) / 2;
+                median = (median + ExtractMin(nums1, ref ai, nums2, ref bi)) / 2;
             return median;
         }
-        int ExtractMin(int[] a, ref int ai, int[] b, ref int bi)
+
+        // 从两个数组中取出较小的一个，并递增索引
+        protected int ExtractMin(int[] a, ref int ai, int[] b, ref int bi)
         {
             if (ai < a.Length && bi < b.Length)
                 if (a[ai] < b[bi])
@@ -39,20 +35,65 @@ namespace MedianofTwoSortedArrays
         }
     }
 
-    public class UnitTest
+    class Solution1 : Solution
     {
+        protected override void Move(int[] a, ref int ai, int[] b, ref int bi, int half)
+        {
+            while (--half >= 0)
+                ExtractMin(a, ref ai, b, ref bi);
+        }
+    }
+
+    class Solution2 : Solution
+    {
+        protected override void Move(int[] a, ref int ai, int[] b, ref int bi, int half)
+        {
+            while (ai < a.Length && bi < b.Length && ai + bi < half)
+                if (a[ai] < b[bi]) ai++;
+                else bi++;
+            while (ai < a.Length && ai + bi < half)
+                ai++;
+            while (bi < b.Length && ai + bi < half)
+                bi++;
+        }
+    }
+
+    class Solution3 : Solution
+    {
+        protected override void Move(int[] a, ref int ai, int[] b, ref int bi, int half)
+        {
+            for (int i = 0; i < half; i++)
+                if (ai >= a.Length)
+                    bi++;
+                else if (bi >= b.Length)
+                    ai++;
+                else if (a[ai] > b[bi])
+                    bi++;
+                else
+                    ai++;
+        }
+    }
+
+    abstract
+    public class MultiTest
+    {
+        protected virtual ISolution GetSo => new Solution1();
+
         [Theory]
         [InlineData(new[] { 1, 3 }, new[] { 2 }, 2.0)]
         [InlineData(new[] { 1, 3 }, new int[0], 2.0)]
         [InlineData(new[] { 1, 2, 3 }, new[] { 4, 5 }, 3.0)]
         [InlineData(new[] { 1, 2 }, new[] { 3, 4 }, 2.5)]
         [InlineData(new[] { 3, 4 }, new[] { 1, 2 }, 2.5)]
-        void Test(int[] nums1, int[] nums2, double median)
+        [InlineData(new[] { 1, 2, 3 }, new int[0], 2.0)]
+        public void Test(int[] nums1, int[] nums2, double expect)
         {
-            var solution = new Solution();
-            double result = solution.FindMedianSortedArrays(nums1, nums2);
-            Assert.Equal(median, result);
+            var so = GetSo;
+            var result = so.FindMedianSortedArrays(nums1, nums2);
+            Assert.Equal(expect, result);
         }
     }
+    public class Test1 : MultiTest { override protected ISolution GetSo => new Solution1(); }
+    public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
+    public class Test3 : MultiTest { override protected ISolution GetSo => new Solution3(); }
 }
-
