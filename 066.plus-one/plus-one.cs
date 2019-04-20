@@ -9,16 +9,16 @@ namespace PlusOne
     {
         public int[] PlusOne(int[] digits)
         {
-            int OF = 1;
+            int carry = 1;
             Span<int> span = stackalloc int[digits.Length + 1];
             for (int i = digits.Length - 1; i >= 0; i--)
-                (span[i + 1], OF) = AddOnce(digits[i], OF);
-            span[0] = OF;
+                (span[i + 1], carry) = AddOnce(digits[i], carry);
+            span[0] = carry;
 
             return span[0] == 0 ? span.Slice(1).ToArray() : span.ToArray();
         }
 
-        (int value, int OF) AddOnce(int a, int b) =>
+        (int value, int carry) AddOnce(int a, int b) =>
             ((a + b) % 10, a + b >= 10 ? 1 : 0);
     }
 
