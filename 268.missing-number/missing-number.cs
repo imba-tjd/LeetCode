@@ -12,7 +12,7 @@ namespace MissingNumber
             int from = 0, to = nums.Length, mid;
             while (from < to)
             {
-                mid = (from + to) / 2;
+                mid = from + (to - from) / 2;
                 if (nums[mid] == mid)
                     from = mid + 1;
                 else

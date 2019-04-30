@@ -14,7 +14,8 @@ namespace BinarySearch
 
             while (to > from) // to - from >= 1
             {
-                midi = (to + from) / 2;
+                // midi = (from + to) / 2;
+                midi = from + (to - from) / 2;
                 mid = nums[midi];
                 if (mid == target)
                     return midi;
@@ -39,7 +40,8 @@ namespace BinarySearch
 
             while (to >= from)
             {
-                midi = (to + from) / 2;
+                // midi = (from + to) / 2;
+                midi = from + (to - from) / 2;
                 mid = nums[midi];
                 if (mid == target)
                     return midi;

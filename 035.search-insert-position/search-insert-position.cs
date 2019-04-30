@@ -25,7 +25,7 @@ namespace SearchInsertPosition
 
             while (from < to)
             {
-                midi = (to + from) / 2;
+                midi = from + (to - from) / 2;
                 mid = nums[midi];
                 if (mid == target)
                     return midi;
