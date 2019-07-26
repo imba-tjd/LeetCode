@@ -19,8 +19,17 @@ namespace MajorityElement
         }
     }
 
-    // Boyer-Moore Voting Algorithm
     class Solution2 : ISolution
+    {
+        public int MajorityElement(int[] nums)
+        {
+            Array.Sort(nums);
+            return nums[nums.Length / 2];
+        }
+    }
+
+    // Boyer-Moore Voting Algorithm
+    class Solution3 : ISolution
     {
         public int MajorityElement(int[] nums)
         {
@@ -57,4 +66,5 @@ namespace MajorityElement
     }
     public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
     public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
+    public class Test3 : MultiTest { override protected ISolution GetSo => new Solution3(); }
 }
