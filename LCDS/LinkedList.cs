@@ -46,6 +46,7 @@ namespace LCDS
         //     return ln; // 已经包含了需要的或null
         // }
 
+        // 有环的时候用不了，否则若要检测环就跟141和142题一样了
         public static ListNode Tail(this ListNode ln)
             => ln.next == null ? ln : Tail(ln.next);
         // {
