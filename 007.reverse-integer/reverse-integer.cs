@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-// using System.Linq;
 
 namespace ReverseInteger
 {

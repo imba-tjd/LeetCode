@@ -4,4 +4,4 @@ Roman numerals are represented by seven different symbols: I, V, X, L, C, D and 
 
 ## Remarks
 
-我这样是LL(1)，另一种方法是把所有可能的情况都switch出来。
+我的做法是当前和之前的比较，就要反过来减两遍。如果是看当前与下一个的大小就不会这样，但是最后一个就直接加就行了，否则会越界。

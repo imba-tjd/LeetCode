@@ -33,7 +33,7 @@ namespace LCDS
         public static ListNode ToListNode(this IEnumerable<int> source)
             => source.Any() ? new ListNode(source.First()) { next = ToListNode(source.Skip(1)) } : null;
 
-        // int to ListNode，每个数字一个结点，仅限正数。注意低位数字在前面的结点。
+        // int to ListNode，每个数字一个结点，仅限正数。注意低位数字储存在前面的结点（逆序）。
         public static ListNode ToListNode(this int value)
             => value == 0 ? null : new ListNode(value % 10) { next = (value / 10).ToListNode() };
 

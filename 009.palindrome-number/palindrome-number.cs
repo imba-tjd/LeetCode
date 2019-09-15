@@ -35,6 +35,31 @@ namespace PalindromeNumber
         }
     }
 
+    class Solution3 : ISolution
+    {
+        public bool IsPalindrome(int x)
+        {
+            var arr = x.ToString().ToCharArray();
+            Array.Reverse(arr);
+            return x.ToString() == new string(arr);
+        }
+    }
+
+    class Solution4 : ISolution
+    {
+        public bool IsPalindrome(int x)
+        {
+            if (x < 0 || x % 10 == 0 && x != 0) return false;
+            int y = 0;
+            while (y < x)
+            {
+                y = y * 10 + x % 10;
+                x /= 10;
+            }
+            return y == x || y / 10 == x;
+            // 长度为奇数时，前者不可能为true，后者就专门处理这种情况。长度为偶数时，如果前者为flase，x和y的长度就相差2，所以后者也不可能为true
+        }
+    }
     abstract
     public class MultiTest
     {
@@ -52,4 +77,6 @@ namespace PalindromeNumber
     }
     public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
     public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
+    public class Test3 : MultiTest { override protected ISolution GetSo => new Solution3(); }
+    public class Test4 : MultiTest { override protected ISolution GetSo => new Solution4(); }
 }

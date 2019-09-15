@@ -47,7 +47,7 @@ namespace Sqrtx
         [Theory]
         [InlineData(4, 2), InlineData(8, 2), InlineData(9, 3),
         InlineData(1, 1), InlineData(0, 0),
-        // InlineData(2147483647, 46340)
+        // InlineData(2147483647, 46340) // 第一种方法过这个测试用例会超时导致CI失败
         ]
         public void Test(int input, int expect)
         {
