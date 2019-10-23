@@ -58,7 +58,7 @@ namespace RemoveDuplicatesfromSortedList
         public void Test(int[] input, int[] expect)
         {
             var so = GetSo;
-            var result = so.DeleteDuplicates(input.ToListNode()).ToArray();
+            var result = so.DeleteDuplicates(ListNode.Create(input)).ToArray();
             Assert.Equal(expect, result);
         }
     }

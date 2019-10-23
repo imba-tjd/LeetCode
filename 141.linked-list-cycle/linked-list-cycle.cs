@@ -50,7 +50,7 @@ namespace LinkedListCycle
         public void Test(int[] arr, int pos, bool expect)
         {
             var so = GetSo;
-            var ln = arr.ToListNode();
+            var ln = ListNode.Create(arr);
             if (pos != -1)
                 ln.Tail().next = ln.At(pos);
 

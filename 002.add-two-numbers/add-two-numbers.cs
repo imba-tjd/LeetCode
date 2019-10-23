@@ -23,8 +23,8 @@ namespace AddTwoNumbers
         [InlineData(3, 9, new[] { 2, 1 })]
         void Test(int a, int b, int[] expects)
         {
-            ListNode l1 = a.ToListNode();
-            ListNode l2 = b.ToListNode();
+            ListNode l1 = ListNode.Create(a);
+            ListNode l2 = ListNode.Create(b);
             var solution = new Solution();
 
             ListNode r = solution.AddTwoNumbers(l1, l2);

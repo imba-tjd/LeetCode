@@ -59,7 +59,7 @@ namespace LinkedListCycleII
         public void Test(int[] arr, int pos)
         {
             var so = GetSo;
-            var ln = arr.ToListNode();
+            var ln = ListNode.Create(arr);
             if (pos != -1) // 我的At里是如果index不存在则返回null，但不能依赖它，因为正确效果是抛异常
                 ln.Tail().next = ln.At(pos);
 

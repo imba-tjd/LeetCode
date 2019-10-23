@@ -37,8 +37,8 @@ namespace MergeTwoSortedLists
         [InlineData(new[] { 1, 2, 4 }, new[] { 1, 3, 4 }, new[] { 1, 1, 2, 3, 4, 4 })]
         public void Test(int[] l1a, int[] l2a, int[] expect)
         {
-            var l1 = l1a.ToListNode();
-            var l2 = l2a.ToListNode();
+            var l1 = ListNode.Create(l1a);
+            var l2 = ListNode.Create(l2a);
             var so = GetSo;
 
             var result = so.MergeTwoLists(l1, l2).ToArray();
