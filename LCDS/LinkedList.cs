@@ -15,10 +15,10 @@ namespace LCDS
             next = null;
         }
 
-        public static ListNode Create(IEnumerable<int> source)
-            => source.Any() ? new ListNode(source.First()) { next = Create(source.Skip(1)) } : null;
-        public static ListNode Create(int value)
-            => value == 0 ? null : new ListNode(value % 10) { next = ListNode.Create(value / 10) };
+        public static ListNode Create(IEnumerable<int> source) =>
+            source.Any() ? new ListNode(source.First()) { next = Create(source.Skip(1)) } : null;
+        public static ListNode Create(int value) =>
+            value == 0 ? null : new ListNode(value % 10) { next = ListNode.Create(value / 10) };
     }
     public static class ListNodeHelper
     {
@@ -36,17 +36,17 @@ namespace LCDS
         // IEnumerable<int> to ListNode
         // 之前写在构造函数里，没法返回null，不能只管自己，复杂了许多。
         // 现在改成ListNode类的静态函数，不作为扩展函数
-        // public static ListNode ToListNode(this IEnumerable<int> source)
-        //     => source.Any() ? new ListNode(source.First()) { next = ToListNode(source.Skip(1)) } : null;
+        // public static ListNode ToListNode(this IEnumerable<int> source) =>
+        //     source.Any() ? new ListNode(source.First()) { next = ToListNode(source.Skip(1)) } : null;
 
         // int to ListNode，每个数字一个结点，仅限正数。注意低位数字储存在前面的结点（逆序）。
         // 同上
-        // public static ListNode ToListNode(this int value)
-        //     => value == 0 ? null : new ListNode(value % 10) { next = (value / 10).ToListNode() };
+        // public static ListNode ToListNode(this int value) =>
+        //     value == 0 ? null : new ListNode(value % 10) { next = (value / 10).ToListNode() };
 
         // 返回指定索引的结点，如果超出，返回null；index为负或ln为负时也返回null，这点与自带的不同，前者与ElementAtOrDefault一致。
-        public static ListNode At(this ListNode ln, int index)
-            => index == 0 ? ln : ln?.next?.At(index - 1);
+        public static ListNode At(this ListNode ln, int index) =>
+            index == 0 ? ln : ln?.next?.At(index - 1);
         // {
         //     while (--index >= 0 && ln != null)
         //         ln = ln.next;
@@ -54,8 +54,8 @@ namespace LCDS
         // }
 
         // 有环的时候用不了，否则若要检测环就跟141和142题一样了
-        public static ListNode Tail(this ListNode ln)
-            => ln.next == null ? ln : Tail(ln.next);
+        public static ListNode Tail(this ListNode ln) =>
+            ln.next == null ? ln : Tail(ln.next);
         // {
         //     while (ln.next != null)
         //         ln = ln.next;

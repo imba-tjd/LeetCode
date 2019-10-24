@@ -157,9 +157,9 @@ namespace Gen
                 return null;
             }
             return Args.SubArray(_position).Select(x =>
-            x.Replace("(", string.Empty)
-            .Replace(")", string.Empty)
-            .Replace(",", string.Empty)
+                x.Replace("(", string.Empty)
+                .Replace(")", string.Empty)
+                .Replace(",", string.Empty)
             );
         }
 
