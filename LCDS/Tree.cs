@@ -68,6 +68,12 @@ namespace LCDS
             => throw new NotImplementedException();
         internal static TreeNode CreatePostOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
+
+        // 单个结点是否相等
+        public static bool Equals(TreeNode p, TreeNode q) =>
+            p == null && q == null ? true :
+            p != null && q != null ? p.val == q.val :
+            false;
     }
 
     public class TreeNodeTest
