@@ -36,7 +36,7 @@ namespace LCDS
         {
             var e = values.GetEnumerator();
             if (e.MoveNext() == false)
-                return null;
+                return null; // []也要返回null而不是抛异常
 
             var q = new Queue<TreeNode>();
             var root = CTN(e.Current);
@@ -95,7 +95,7 @@ namespace LCDS
         internal static IEnumerable<int?> AsEnumerableByPreOrder(TreeNode tn)
         {
             var s = new Stack<TreeNode>();
-            while (true) // 书上这里是s.Count!=0 || tn != null
+            while (true) // 书上这里是s.Count!=0 || tn != null，具体可看104题的第二个解法
             {
                 yield return tn?.val; // 如果此处tn为null时不返回，就是纯的先序序列
                 if (tn != null)
@@ -154,6 +154,34 @@ namespace LCDS
         internal static IEnumerable<int?> AsEnumerableByPostOrder(TreeNode tn)
             => throw new NotImplementedException();
 
+        // 层次遍历。cleanq的作用是消除掉最后的null，只有遇到非null的东西才会一次返回之前储存的null；算深度见104题第三个解法
+        internal static IEnumerable<int?> AsEnumerableByLayer(TreeNode tn)
+        {
+            if (tn == null) // 普通的遍历也需要处理根为null的情况，但如果是直接输出或返回字符串就不用了
+                yield return null;
+
+            var q = new Queue<TreeNode>();
+            var cleanq = new Queue<int?>(); // 普通的遍历不需要这句
+            q.Enqueue(tn);
+
+            while (q.Count != 0)
+            {
+                var c = q.Dequeue();
+
+                // 普通的遍历不需要几这句，直接yield return就行；要保证q队列里没有null，因此要处根为null的情况
+                cleanq.Enqueue(c?.val);
+                if (c != null)
+                    while (cleanq.Count != 0)
+                        yield return cleanq.Dequeue();
+
+                if (c != null)
+                {
+                    q.Enqueue(c.left);
+                    q.Enqueue(c.right);
+                }
+            }
+        }
+
         // 单个结点是否相等
         public static bool Equals(TreeNode p, TreeNode q) =>
             p == null && q == null ? true :
@@ -172,19 +200,19 @@ namespace LCDS
               9  20
                 /  \
                15   7 */
-            var tn = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 }, ttype);
+            var tree = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 }, ttype);
             // 按照先序断言
-            Assert.Equal(3, tn.val);
-            Assert.Equal(9, tn.left.val);
-            Assert.Null(tn.left.left);
-            Assert.Null(tn.left.right);
-            Assert.Equal(20, tn.right.val);
-            Assert.Equal(15, tn.right.left.val);
-            Assert.Null(tn.right.left.left);
-            Assert.Null(tn.right.left.right);
-            Assert.Equal(7, tn.right.right.val);
-            Assert.Null(tn.right.right.left);
-            Assert.Null(tn.right.right.right);
+            Assert.Equal(3, tree.val);
+            Assert.Equal(9, tree.left.val);
+            Assert.Null(tree.left.left);
+            Assert.Null(tree.left.right);
+            Assert.Equal(20, tree.right.val);
+            Assert.Equal(15, tree.right.left.val);
+            Assert.Null(tree.right.left.left);
+            Assert.Null(tree.right.left.right);
+            Assert.Equal(7, tree.right.right.val);
+            Assert.Null(tree.right.right.left);
+            Assert.Null(tree.right.right.right);
         }
         [Theory]
         [InlineData(TraversalType.Layer)]
@@ -197,22 +225,29 @@ namespace LCDS
                3   3
               / \
              4   4        */
-            var tn = TreeNode.Create(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }, ttype);
-            Assert.Equal(1, tn.val);
-            Assert.Equal(2, tn.left.val);
-            Assert.Equal(3, tn.left.left.val);
-            Assert.Equal(4, tn.left.left.left.val);
-            Assert.Null(tn.left.left.left.left);
-            Assert.Null(tn.left.left.left.right);
-            Assert.Equal(4, tn.left.left.right.val);
-            Assert.Null(tn.left.left.right.left);
-            Assert.Null(tn.left.left.right.right);
-            Assert.Equal(3, tn.left.right.val);
-            Assert.Null(tn.left.right.right);
-            Assert.Null(tn.left.right.left);
-            Assert.Equal(2, tn.right.val);
-            Assert.Null(tn.right.left);
-            Assert.Null(tn.right.right);
+            var tree = TreeNode.Create(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }, ttype);
+            Assert.Equal(1, tree.val);
+            Assert.Equal(2, tree.left.val);
+            Assert.Equal(3, tree.left.left.val);
+            Assert.Equal(4, tree.left.left.left.val);
+            Assert.Null(tree.left.left.left.left);
+            Assert.Null(tree.left.left.left.right);
+            Assert.Equal(4, tree.left.left.right.val);
+            Assert.Null(tree.left.left.right.left);
+            Assert.Null(tree.left.left.right.right);
+            Assert.Equal(3, tree.left.right.val);
+            Assert.Null(tree.left.right.right);
+            Assert.Null(tree.left.right.left);
+            Assert.Equal(2, tree.right.val);
+            Assert.Null(tree.right.left);
+            Assert.Null(tree.right.right);
+        }
+
+        [Fact]
+        public void CreateTest()
+        {
+            var tree = TreeNode.Create(new int?[] { null });
+            Assert.Null(tree);
         }
 
         [Theory]
@@ -238,8 +273,10 @@ namespace LCDS
         public static void AsEnumerableTest()
         {
             var tn = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 });
-            var result = tn.AsEnumerable();
-            var expect = new int?[] { 3, 9, null, null, 20, 15, null, null, 7, null, null };
+            // var result = tn.AsEnumerable();
+            // var expect = new int?[] { 3, 9, null, null, 20, 15, null, null, 7, null, null };
+            var result = tn.AsEnumerable(TraversalType.Layer);
+            var expect = new int?[] { 3, 9, 20, null, null, 15, 7 };
             Assert.Equal(expect, result);
         }
     }
