@@ -11,8 +11,8 @@ namespace LCDS
         public TreeNode left;
         public TreeNode right;
         public TreeNode(int x) { val = x; }
-        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.LayerByLayer)
-            => (TreeNode)TreeNodeHelper.GetCreate(ttype).Invoke(null, new[] { values });
+        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.Layer)
+            => TreeNodeHelper.Dispatch<TreeNode>(nameof(Create), ttype, values);
     }
 
     public enum TraversalType
@@ -20,17 +20,19 @@ namespace LCDS
         PreOrder, // DLR先序
         InOrder, // LDR中序
         PostOrder, // LRD后序
-        LayerByLayer // 层次遍历
+        Layer // 层次遍历
     }
 
     public static class TreeNodeHelper
     {
-        internal static System.Reflection.MethodInfo GetCreate(TraversalType ttype) =>
-            typeof(TreeNodeHelper).GetMethod("Create" + ttype.ToString(),
+        internal static System.Reflection.MethodInfo GetFunction(string action, TraversalType ttype) =>
+            typeof(TreeNodeHelper).GetMethod(action + "By" + ttype.ToString(),
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        internal static T Dispatch<T>(string action, TraversalType ttype, params object[] args) =>
+            (T)GetFunction(action, ttype).Invoke(null, args);
         static TreeNode CTN(int? val) => val == null ? null : new TreeNode(val.Value);
 
-        internal static TreeNode CreateLayerByLayer(IEnumerable<int?> values)
+        internal static TreeNode CreateByLayer(IEnumerable<int?> values)
         {
             var e = values.GetEnumerator();
             if (e.MoveNext() == false)
@@ -62,25 +64,108 @@ namespace LCDS
 
             return root;
         }
-        internal static TreeNode CreatePreOrder(IEnumerable<int?> values)
+        internal static TreeNode CreateByPreOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
-        internal static TreeNode CreateInOrder(IEnumerable<int?> values)
+        // {
+        //     var e = values.GetEnumerator();
+        //     if (e.MoveNext() == false)
+        //         return null;
+
+        //     var s = new Stack<TreeNode>();
+        //     var root = CTN(e.Current);
+        //     s.Push(root);
+
+        //     while(e.MoveNext() != false)
+        //     {
+        //         var c = s.Pop();
+
+        //     }
+
+        //     return root;
+        // }
+        internal static TreeNode CreateByInOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
-        internal static TreeNode CreatePostOrder(IEnumerable<int?> values)
+        internal static TreeNode CreateByPostOrder(IEnumerable<int?> values)
+            => throw new NotImplementedException();
+
+        public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.PreOrder) =>
+            Dispatch<IEnumerable<int?>>(nameof(AsEnumerable), ttype, tn);
+
+        // 基本上就是书上的做法，只是为了返回null，循环条件改了一下
+        internal static IEnumerable<int?> AsEnumerableByPreOrder(TreeNode tn)
+        {
+            var s = new Stack<TreeNode>();
+            while (true) // 书上这里是s.Count!=0 || tn != null
+            {
+                yield return tn?.val; // 如果此处tn为null时不返回，就是纯的先序序列
+                if (tn != null)
+                {
+                    s.Push(tn); // 压栈自己，把当前设为左边
+                    tn = tn.left;
+                }
+                else
+                {
+                    if (s.Count == 0) // 当前为null**且**栈为空时结束
+                        break;
+                    tn = s.Pop().right; // 别忘了往右边走
+                }
+            }
+        }
+
+        // 只评估自己的做法。因为每次循环的当前来源是Pop出来的，必须立即消费，否则就留不下来了，因此只能用于先序遍历
+        internal static IEnumerable<int?> AsEnumerableByPreOrder2(TreeNode tn)
+        {
+            var s = new Stack<TreeNode>();
+            s.Push(tn);
+            while (s.Count != 0)
+            {
+                tn = s.Pop();
+                yield return tn?.val;
+                if (tn != null)
+                {
+                    s.Push(tn.right);
+                    s.Push(tn.left);
+                }
+            }
+        }
+
+        internal static IEnumerable<int?> AsEnumerableByInOrder(TreeNode tn)
+        {
+            var s = new Stack<TreeNode>();
+            while (true)
+            {
+                if (tn != null)
+                {
+                    s.Push(tn);
+                    tn = tn.left;
+                }
+                else
+                {
+                    yield return null;
+                    if (s.Count == 0)
+                        break;
+                    tn = s.Pop();
+                    yield return tn.val;
+                    tn = tn.right;
+                }
+            }
+        }
+
+        internal static IEnumerable<int?> AsEnumerableByPostOrder(TreeNode tn)
             => throw new NotImplementedException();
 
         // 单个结点是否相等
         public static bool Equals(TreeNode p, TreeNode q) =>
             p == null && q == null ? true :
-            p != null && q != null ? p.val == q.val :
-            false;
+            p == null || q == null ? false :
+            p.val == q.val;
     }
 
     public class TreeNodeTest
     {
         [Theory]
-        [InlineData(TraversalType.LayerByLayer)]
-        public void CreateTreeLayerByLayerTest1(TraversalType ttype)
+        [InlineData(TraversalType.Layer)]
+        public void CreateTreeByLayerTest1(TraversalType ttype)
         {
             /*  3
                / \
@@ -102,8 +187,8 @@ namespace LCDS
             Assert.Null(tn.right.right.right);
         }
         [Theory]
-        [InlineData(TraversalType.LayerByLayer)]
-        public void CreateTreeLayerByLayerTest2(TraversalType ttype)
+        [InlineData(TraversalType.Layer)]
+        public void CreateTreeByLayerTest2(TraversalType ttype)
         {
             /*     1
                   / \
@@ -134,19 +219,28 @@ namespace LCDS
         [InlineData(TraversalType.PreOrder)]
         [InlineData(TraversalType.InOrder)]
         [InlineData(TraversalType.PostOrder)]
-        [InlineData(TraversalType.LayerByLayer)]
+        [InlineData(TraversalType.Layer)]
         public void ReflectionTest(TraversalType ttype)
         {
-            var f1 = TreeNodeHelper.GetCreate(ttype);
+            var f1 = TreeNodeHelper.GetFunction("Create", ttype);
             Func<IEnumerable<int?>, TreeNode> f2 = ttype switch
             {
-                TraversalType.PreOrder => TreeNodeHelper.CreatePreOrder,
-                TraversalType.InOrder => TreeNodeHelper.CreateInOrder,
-                TraversalType.PostOrder => TreeNodeHelper.CreatePostOrder,
-                TraversalType.LayerByLayer => TreeNodeHelper.CreateLayerByLayer,
+                TraversalType.PreOrder => TreeNodeHelper.CreateByPreOrder,
+                TraversalType.InOrder => TreeNodeHelper.CreateByInOrder,
+                TraversalType.PostOrder => TreeNodeHelper.CreateByPostOrder,
+                TraversalType.Layer => TreeNodeHelper.CreateByLayer,
                 _ => throw new NotImplementedException()
             };
             Assert.Equal(f2.Method, f1);
+        }
+
+        [Fact]
+        public static void AsEnumerableTest()
+        {
+            var tn = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 });
+            var result = tn.AsEnumerable();
+            var expect = new int?[] { 3, 9, null, null, 20, 15, null, null, 7, null, null };
+            Assert.Equal(expect, result);
         }
     }
 }
