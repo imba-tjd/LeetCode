@@ -10,10 +10,12 @@ namespace SameTree
     {
         public bool IsSameTree(TreeNode p, TreeNode q) =>
             p == null && q == null ? true :
-            p != null && q != null ? p.val == q.val && IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right) :
-            false; // 一个为null一个不为null
+            p == null || q == null ? false : // 有且只有一个为null
+            p.val == q.val && IsSameTree(p.left, q.left) && IsSameTree(p.right, q.right);
+        // 都不为null。本来是把有一个为null的放在最后的else里的，后来发现那样第二条太长了，第三条就一个false
     }
 
+    // 和第一种方法一样，只是换成了迭代。另外也可以用一个队列解决。
     class Solution2 : ISolution
     {
         public bool IsSameTree(TreeNode p, TreeNode q)
@@ -28,23 +30,23 @@ namespace SameTree
             {
                 var a = pq.Dequeue();
                 var b = qq.Dequeue();
-                if (a == null && b == null)
+                if (a == null && b == null) // 都为null时不也没法把孩子如队
                     continue;
-                else if (a != null && b != null)
-                    if (a.val != b.val)
-                        return false;
-                    else
-                    {
-                        pq.Enqueue(a.left);
-                        pq.Enqueue(a.right);
-                        qq.Enqueue(b.left);
-                        qq.Enqueue(b.right);
-                    }
-                else
+                else if (a == null || b == null)
                     return false;
+                else if (a.val != b.val)
+                    return false;
+                else
+                {
+                    pq.Enqueue(a.left);
+                    pq.Enqueue(a.right);
+                    qq.Enqueue(b.left);
+                    qq.Enqueue(b.right);
+                }
             }
 
-            return pq.Count == 0 && qq.Count == 0;
+            return true; // 可以保证两者是同步的，也只有这样才能只用一个队列
+            // return pq.Count == 0 && qq.Count == 0;
         }
     }
 
