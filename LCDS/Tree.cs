@@ -88,7 +88,7 @@ namespace LCDS
         internal static TreeNode CreateByPostOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
 
-        public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.PreOrder) =>
+        public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.Layer) =>
             Dispatch<IEnumerable<int?>>(nameof(AsEnumerable), ttype, tn);
 
         // 基本上就是书上的做法，只是为了返回null，循环条件改了一下
