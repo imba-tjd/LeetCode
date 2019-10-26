@@ -11,7 +11,7 @@ namespace LCDS
         public TreeNode left;
         public TreeNode right;
         public TreeNode(int x) { val = x; }
-        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.Layer)
+        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.LevelOrder)
             => TreeNodeHelper.Dispatch<TreeNode>(nameof(Create), ttype, values);
     }
 
@@ -20,7 +20,7 @@ namespace LCDS
         PreOrder, // DLR先序
         InOrder, // LDR中序
         PostOrder, // LRD后序
-        Layer // 层次遍历
+        LevelOrder // 层次遍历
     }
 
     public static class TreeNodeHelper
@@ -32,7 +32,7 @@ namespace LCDS
             (T)GetFunction(action, ttype).Invoke(null, args);
         static TreeNode CTN(int? val) => val == null ? null : new TreeNode(val.Value);
 
-        internal static TreeNode CreateByLayer(IEnumerable<int?> values)
+        internal static TreeNode CreateByLevelOrder(IEnumerable<int?> values)
         {
             var e = values.GetEnumerator();
             if (e.MoveNext() == false)
@@ -88,7 +88,7 @@ namespace LCDS
         internal static TreeNode CreateByPostOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
 
-        public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.Layer) =>
+        public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.LevelOrder) =>
             Dispatch<IEnumerable<int?>>(nameof(AsEnumerable), ttype, tn);
 
         // 基本上就是书上的做法，只是为了返回null，循环条件改了一下
@@ -155,7 +155,7 @@ namespace LCDS
             => throw new NotImplementedException();
 
         // 层次遍历。cleanq的作用是消除掉最后的null，只有遇到非null的东西才会一次返回之前储存的null；算深度见104题第三个解法
-        internal static IEnumerable<int?> AsEnumerableByLayer(TreeNode tn)
+        internal static IEnumerable<int?> AsEnumerableByLevelOrder(TreeNode tn)
         {
             if (tn == null) // 普通的遍历也需要处理根为null的情况，但如果是直接输出或返回字符串就不用了
                 yield return null;
@@ -192,8 +192,8 @@ namespace LCDS
     public class TreeNodeTest
     {
         [Theory]
-        [InlineData(TraversalType.Layer)]
-        public void CreateTreeByLayerTest1(TraversalType ttype)
+        [InlineData(TraversalType.LevelOrder)]
+        public void CreateTreeByLevelOrderTest1(TraversalType ttype)
         {
             /*  3
                / \
@@ -215,8 +215,8 @@ namespace LCDS
             Assert.Null(tree.right.right.right);
         }
         [Theory]
-        [InlineData(TraversalType.Layer)]
-        public void CreateTreeByLayerTest2(TraversalType ttype)
+        [InlineData(TraversalType.LevelOrder)]
+        public void CreateTreeByLevelOrderTest2(TraversalType ttype)
         {
             /*     1
                   / \
@@ -254,7 +254,7 @@ namespace LCDS
         [InlineData(TraversalType.PreOrder)]
         [InlineData(TraversalType.InOrder)]
         [InlineData(TraversalType.PostOrder)]
-        [InlineData(TraversalType.Layer)]
+        [InlineData(TraversalType.LevelOrder)]
         public void ReflectionTest(TraversalType ttype)
         {
             var f1 = TreeNodeHelper.GetFunction("Create", ttype);
@@ -263,7 +263,7 @@ namespace LCDS
                 TraversalType.PreOrder => TreeNodeHelper.CreateByPreOrder,
                 TraversalType.InOrder => TreeNodeHelper.CreateByInOrder,
                 TraversalType.PostOrder => TreeNodeHelper.CreateByPostOrder,
-                TraversalType.Layer => TreeNodeHelper.CreateByLayer,
+                TraversalType.LevelOrder => TreeNodeHelper.CreateByLevelOrder,
                 _ => throw new NotImplementedException()
             };
             Assert.Equal(f2.Method, f1);
@@ -275,7 +275,7 @@ namespace LCDS
             var tn = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 });
             // var result = tn.AsEnumerable();
             // var expect = new int?[] { 3, 9, null, null, 20, 15, null, null, 7, null, null };
-            var result = tn.AsEnumerable(TraversalType.Layer);
+            var result = tn.AsEnumerable(TraversalType.LevelOrder);
             var expect = new int?[] { 3, 9, 20, null, null, 15, 7 };
             Assert.Equal(expect, result);
         }
