@@ -10,6 +10,6 @@
         {
             var so = GetSo;
             var tree = TreeNode.Create(treearr);
-            var result = so.<Fun>(tree);
+            var result = so
             Assert.Equal(expect, result);
         }
