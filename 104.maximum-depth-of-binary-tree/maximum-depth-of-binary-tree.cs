@@ -44,7 +44,7 @@ namespace MaximumDepthofBinaryTree
 
     // 非递归层次遍历。思路是遇到每一层的最后一个时（current==last）层数加一，此时队列里刚好全部是下一层的结点，则下一层的最后一个刚好是队尾。
     // 需要获取队尾，原生不支持，用了Linq导致效率不高。因为null永远等于null，所以队列里不能有null
-    // 也可以不用last，而是在里面用个循环，因为每一层开始时队列的长度是知道的，只要把当时大小的队列遍历一遍就行。
+    // 也可以不用last，而是在里面用个循环，因为每一层开始时队列的长度是知道的，只要把当时大小的队列遍历一遍就行。具体看111题第二解
     class Solution3 : ISolution
     {
         public int MaxDepth(TreeNode root)
