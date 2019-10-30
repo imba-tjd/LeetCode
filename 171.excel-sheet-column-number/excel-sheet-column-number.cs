@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ExcelSheetColumnNumber
+namespace Problems.ExcelSheetColumnNumber
 {
     public interface ISolution { int TitleToNumber(string s); }
     class Solution : ISolution

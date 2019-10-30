@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace MaximumDepthofBinaryTree
+namespace Problems.MaximumDepthofBinaryTree
 {
     public interface ISolution { int MaxDepth(TreeNode root); }
     class Solution : ISolution

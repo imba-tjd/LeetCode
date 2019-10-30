@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ValidParentheses
+namespace Problems.ValidParentheses
 {
     public interface ISolution { bool IsValid(string s); }
     class Solution : ISolution

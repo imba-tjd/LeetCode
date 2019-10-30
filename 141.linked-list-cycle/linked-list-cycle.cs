@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace LinkedListCycle
+namespace Problems.LinkedListCycle
 {
     public interface ISolution { bool HasCycle(ListNode head); }
     class Solution : ISolution

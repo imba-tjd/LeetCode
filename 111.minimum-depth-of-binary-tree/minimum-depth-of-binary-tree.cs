@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace MinimumDepthofBinaryTree
+namespace Problems.MinimumDepthofBinaryTree
 {
     public interface ISolution { int MinDepth(TreeNode root); }
     class Solution : ISolution

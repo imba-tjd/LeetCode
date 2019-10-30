@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace LongestSubstringWithoutRepeatingCharacters
+namespace Problems.LongestSubstringWithoutRepeatingCharacters
 {
     public interface ISolution { int LengthOfLongestSubstring(string s); }
     class Solution : ISolution

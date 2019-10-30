@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace MissingNumber
+namespace Problems.MissingNumber
 {
     public interface ISolution { int MissingNumber(int[] nums); }
     class Solution : ISolution

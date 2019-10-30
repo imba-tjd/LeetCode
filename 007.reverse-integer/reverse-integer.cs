@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace ReverseInteger
+namespace Problems.ReverseInteger
 {
     public interface ISolution { int Reverse(int x); }
     public class Solution : ISolution

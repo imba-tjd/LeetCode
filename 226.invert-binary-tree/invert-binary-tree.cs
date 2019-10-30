@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace InvertBinaryTree
+namespace Problems.InvertBinaryTree
 {
     public interface ISolution { TreeNode InvertTree(TreeNode root); }
     class Solution : ISolution

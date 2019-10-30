@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace BalancedBinaryTree
+namespace Problems.BalancedBinaryTree
 {
     public interface ISolution { bool IsBalanced(TreeNode root); }
     class Solution : ISolution

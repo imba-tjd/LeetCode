@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace RemoveElement
+namespace Problems.RemoveElement
 {
     public interface ISolution { int RemoveElement(int[] nums, int val); }
     class Solution : ISolution

@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using LCDS;
 
-namespace AddTwoNumbers
+namespace Problems.AddTwoNumbers
 {
     class Solution
     {

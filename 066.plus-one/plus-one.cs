@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace PlusOne
+namespace Problems.PlusOne
 {
     public interface ISolution { int[] PlusOne(int[] digits); }
     class Solution : ISolution

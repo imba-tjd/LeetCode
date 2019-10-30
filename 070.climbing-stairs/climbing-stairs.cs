@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ClimbingStairs
+namespace Problems.ClimbingStairs
 {
     public interface ISolution { int ClimbStairs(int n); }
     class Solution : ISolution

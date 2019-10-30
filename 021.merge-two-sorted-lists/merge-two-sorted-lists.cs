@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace MergeTwoSortedLists
+namespace Problems.MergeTwoSortedLists
 {
     public interface ISolution { ListNode MergeTwoLists(ListNode l1, ListNode l2); }
     class Solution : ISolution

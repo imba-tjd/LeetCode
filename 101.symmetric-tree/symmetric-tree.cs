@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace SymmetricTree
+namespace Problems.SymmetricTree
 {
     public interface ISolution { bool IsSymmetric(TreeNode root); }
 
