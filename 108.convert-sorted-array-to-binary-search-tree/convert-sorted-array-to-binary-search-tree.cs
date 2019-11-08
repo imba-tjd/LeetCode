@@ -54,11 +54,13 @@ namespace Problems.ConvertSortedArraytoBinarySearchTree
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution GetSo => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
             yield return new object[] { new[] { -10, -3, 0, 5, 9 }, new int?[] { 0, -3, 9, -10, null, 5 } };
+            yield return new object[] { new[] { 7, 10, 13, 16, 19, 29, 32, 33, 37, 41, 43 },
+                new int?[] { 29, 13, 37, 10, 19, 33, 43, 7, null, 16, null, 32, null, 41 } };
         }
 
         [Theory]

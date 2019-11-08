@@ -31,7 +31,7 @@ namespace Problems.PalindromeNumber
                 z = z * 10 + y % 10;
                 y /= 10;
             }
-            return x == z ? true : false;
+            return x == z;
         }
     }
 
