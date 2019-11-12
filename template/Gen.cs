@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace Gen
+namespace Tools.Gen
 {
 #if !DEBUG
     class Program
@@ -39,7 +39,8 @@ namespace Gen
             string csFileContent = File.ReadAllText(csTemplatePath).Replace("<NS>", ns);
             string readmeFileContent = File.ReadAllText(readmeTemplatePath)
                 .Replace("<Problem>", string.Join(" ", Args))
-                .Replace("<URL>", urlBase + urlSuffix + "/");
+                .Replace("<URL>", urlBase + urlSuffix + "/")
+                .Replace("<SN>", serialNum);
 
             WriteContent(csFilePath, csFileContent);
             WriteContent(readmeFilePath, readmeFileContent);
@@ -187,7 +188,7 @@ namespace Gen
     }
 }
 #if DEBUG
-namespace Gen.Test
+namespace Tools.Gen.Test
 {
     using System.Collections.Generic;
     using Xunit;
