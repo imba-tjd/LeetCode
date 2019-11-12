@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.MinStack
+namespace Problems.Problem155.MinStack
 {
     public interface ISolution
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.ValidPalindrome
+namespace Problems.Problem125.ValidPalindrome
 {
     public interface ISolution { bool IsPalindrome(string s); }
     class Solution : ISolution

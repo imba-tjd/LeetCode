@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.MergeSortedArray
+namespace Problems.Problem088.MergeSortedArray
 {
     public interface ISolution { void Merge(int[] nums1, int m, int[] nums2, int n); }
     class Solution : ISolution

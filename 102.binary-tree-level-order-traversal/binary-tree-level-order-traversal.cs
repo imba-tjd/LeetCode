@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.BinaryTreeLevelOrderTraversal
+namespace Problems.Problem102.BinaryTreeLevelOrderTraversal
 {
     public interface ISolution { IList<IList<int>> LevelOrder(TreeNode root); }
     class Solution : ISolution

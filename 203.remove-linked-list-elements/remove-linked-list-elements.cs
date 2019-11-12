@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.RemoveLinkedListElements
+namespace Problems.Problem203.RemoveLinkedListElements
 {
     public interface ISolution { ListNode RemoveElements(ListNode head, int val); }
     class Solution : ISolution

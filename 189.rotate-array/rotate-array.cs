@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.RotateArray
+namespace Problems.Problem189.RotateArray
 {
     public interface ISolution { void Rotate(int[] nums, int k); }
     class Solution : ISolution

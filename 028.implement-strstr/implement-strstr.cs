@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.ImplementstrStr
+namespace Problems.Problem028.ImplementstrStr
 {
     public interface ISolution { int StrStr(string haystack, string needle); }
     class Solution : ISolution

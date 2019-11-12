@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.SearchInsertPosition
+namespace Problems.Problem035.SearchInsertPosition
 {
     public interface ISolution { int SearchInsert(int[] nums, int target); }
     class Solution : ISolution

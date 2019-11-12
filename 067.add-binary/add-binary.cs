@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.AddBinary
+namespace Problems.Problem067.AddBinary
 {
     public interface ISolution { string AddBinary(string a, string b); }
     class Solution : ISolution

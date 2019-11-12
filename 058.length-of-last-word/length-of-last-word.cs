@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.LengthofLastWord
+namespace Problems.Problem058.LengthofLastWord
 {
     public interface ISolution { int LengthOfLastWord(string s); }
     class Solution : ISolution

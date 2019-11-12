@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.SameTree
+namespace Problems.Problem100.SameTree
 {
     public interface ISolution { bool IsSameTree(TreeNode p, TreeNode q); }
     class Solution : ISolution

@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Problems.MedianofTwoSortedArrays
+namespace Problems.Problem004.MedianofTwoSortedArrays
 {
     public interface ISolution { double FindMedianSortedArrays(int[] nums1, int[] nums2); }
 

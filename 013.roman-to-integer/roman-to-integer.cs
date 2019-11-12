@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.RomantoInteger
+namespace Problems.Problem013.RomantoInteger
 {
     public interface ISolution { int RomanToInt(string s); }
     class Solution : ISolution

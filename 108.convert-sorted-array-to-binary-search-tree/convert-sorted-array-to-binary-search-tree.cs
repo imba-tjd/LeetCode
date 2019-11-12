@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.ConvertSortedArraytoBinarySearchTree
+namespace Problems.Problem108.ConvertSortedArraytoBinarySearchTree
 {
     public interface ISolution { TreeNode SortedArrayToBST(int[] nums); }
     class Solution : ISolution

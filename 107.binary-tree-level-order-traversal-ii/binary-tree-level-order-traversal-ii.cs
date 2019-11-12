@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.BinaryTreeLevelOrderTraversalII
+namespace Problems.Problem107.BinaryTreeLevelOrderTraversalII
 {
     public interface ISolution { IList<IList<int>> LevelOrderBottom(TreeNode root); }
     class Solution : ISolution
     {
         public IList<IList<int>> LevelOrderBottom(TreeNode root) =>
-            new BinaryTreeLevelOrderTraversal.Solution().LevelOrder(root).Reverse().ToList();
+            new Problem102.BinaryTreeLevelOrderTraversal.Solution().LevelOrder(root).Reverse().ToList();
             // 效率比List的Reverse稍微低一点
     }
 

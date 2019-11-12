@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.TwoSum
+namespace Problems.Problem001.TwoSum
 {
     class Solution
     {

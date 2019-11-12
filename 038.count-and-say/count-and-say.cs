@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.CountandSay
+namespace Problems.Problem038.CountandSay
 {
     public interface ISolution { string CountAndSay(int n); }
     class Solution : ISolution

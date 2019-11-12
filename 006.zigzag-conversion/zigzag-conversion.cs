@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using Xunit;
 
-namespace Problems.ZigZagConversion
+namespace Problems.Problem006.ZigZagConversion
 {
     public interface ISolution { string Convert(string s, int numRows); }
     class Solution : ISolution

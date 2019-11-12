@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.StringtoIntegeratoi
+namespace Problems.Problem008.StringtoIntegeratoi
 {
     public interface ISolution { int MyAtoi(string str); }
     class Solution : ISolution

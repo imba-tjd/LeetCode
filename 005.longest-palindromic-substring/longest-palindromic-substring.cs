@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Problems.LongestPalindromicSubstring
+namespace Problems.Problem005.LongestPalindromicSubstring
 {
     public interface ISolution { string LongestPalindrome(string s); }
     class Solution : ISolution

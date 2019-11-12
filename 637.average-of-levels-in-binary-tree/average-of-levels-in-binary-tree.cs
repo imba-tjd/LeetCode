@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.AverageofLevelsinBinaryTree
+namespace Problems.Problem637.AverageofLevelsinBinaryTree
 {
     public interface ISolution { IList<double> AverageOfLevels(TreeNode root); }
     class Solution : ISolution

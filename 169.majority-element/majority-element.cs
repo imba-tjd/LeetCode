@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.MajorityElement
+namespace Problems.Problem169.MajorityElement
 {
     public interface ISolution { int MajorityElement(int[] nums); }
     class Solution : ISolution

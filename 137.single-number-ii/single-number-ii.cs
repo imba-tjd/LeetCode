@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.SingleNumberII
+namespace Problems.Problem137.SingleNumberII
 {
     public interface ISolution { int SingleNumber(int[] nums); }
     class Solution : ISolution
