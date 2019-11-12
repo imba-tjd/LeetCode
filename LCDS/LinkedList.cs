@@ -15,8 +15,10 @@ namespace LCDS
             next = null;
         }
 
+        // 不存在头节点，这样删除的时候也没办法删除第一个元素，203题是返回新的头结点
         public static ListNode Create(IEnumerable<int> source) =>
             source.Any() ? new ListNode(source.First()) { next = Create(source.Skip(1)) } : null;
+        // 说明见下面注释掉的ToListNode函数
         public static ListNode Create(int value) =>
             value == 0 ? null : new ListNode(value % 10) { next = ListNode.Create(value / 10) };
     }
@@ -25,10 +27,11 @@ namespace LCDS
         // ListNode to IEnumerable<int>
         public static IEnumerable<int> AsEnumerable(this ListNode ln)
         {
+            if (ln == null) // 如果LN是null，不会产生NPE，而是返回空序列
+                yield break; // 在非yield函数中就是Enumerable.Empty
             yield return ln.val;
-            if (ln.next != null)
-                foreach (var e in ln.next.AsEnumerable())
-                    yield return e;
+            foreach (var e in ln.next.AsEnumerable()) // 不必检查ln.next!=null，原因见上面那句注释
+                yield return e;
         }
         // ListNode to int[]
         public static int[] ToArray(this ListNode ln) => ln.AsEnumerable().ToArray();
@@ -71,13 +74,14 @@ namespace LCDS
             int[] arr = new[] { 1, 4, 7, 2, 5, 8, 3, 6, 9 };
             var ln = ListNode.Create(arr);
             var result = ln.ToArray();
+
             Assert.NotNull(result);
             Assert.NotEmpty(result);
+            Assert.Equal(arr, result);
 
-            for (int i = 0; i < arr.Length; i++)
-                Assert.Equal(arr[i], result[i]);
-
-            Assert.Null(ListNode.Create(new int[0]));
+            var none = ListNode.Create(new int[0]);
+            Assert.Null(none);
+            Assert.Empty(none.AsEnumerable());
         }
 
         [Fact]
