@@ -27,24 +27,20 @@ namespace Problems.LinkedListCycleII
         public ListNode DetectCycle(ListNode head)
         {
             ListNode ln1, ln2;
-            ln1 = head?.next;
-            ln2 = head?.next?.next;
-            while (ln2 != null)
+            ln1 = ln2 = head;
+
+            do
             {
-                if (ln1 == ln2)
-                    goto outer;
                 ln1 = ln1?.next;
                 ln2 = ln2?.next?.next;
-            }
-            return null;
+                if (ln2 == null)
+                    return null;
+            } while (ln1 != ln2);
 
-        outer: // 一定有环
             ListNode ln3 = head;
             while (ln3 != ln1)
-            {
-                ln3 = ln3.next;
-                ln1 = ln1.next;
-            }
+                (ln3, ln1) = (ln3.next, ln1.next);
+
             return ln1;
         }
     }
