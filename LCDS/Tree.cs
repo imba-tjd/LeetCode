@@ -13,6 +13,7 @@ namespace LCDS
         public TreeNode(int x) { val = x; }
         public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.LevelOrder)
             => TreeNodeHelper.Dispatch<TreeNode>(nameof(Create), ttype, values);
+        public static TreeNode Create(int? val) => val == null ? null : new TreeNode(val.Value);
     }
 
     public enum TraversalType
@@ -25,12 +26,13 @@ namespace LCDS
 
     public static class TreeNodeHelper
     {
+        // 获得CreateByLevelOrder等函数
         internal static System.Reflection.MethodInfo GetFunction(string action, TraversalType ttype) =>
             typeof(TreeNodeHelper).GetMethod(action + "By" + ttype.ToString(),
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+        // 调用函数获得结果
         internal static T Dispatch<T>(string action, TraversalType ttype, params object[] args) =>
             (T)GetFunction(action, ttype).Invoke(null, args);
-        static TreeNode CTN(int? val) => val == null ? null : new TreeNode(val.Value);
 
         internal static TreeNode CreateByLevelOrder(IEnumerable<int?> values)
         {
@@ -38,8 +40,8 @@ namespace LCDS
             if (e.MoveNext() == false)
                 return null; // []也要返回null而不是抛异常
 
-            var q = new Queue<TreeNode>();
-            var root = CTN(e.Current);
+            var q = new Queue<TreeNode>(); // 可以含有null
+            var root = TreeNode.Create(e.Current);
             q.Enqueue(root);
 
             while (e.MoveNext() != false)
@@ -52,11 +54,11 @@ namespace LCDS
                     else
                         continue;
 
-                c.left = CTN(e.Current);
+                c.left = TreeNode.Create(e.Current);
 
                 if (e.MoveNext() == false) // 允许最后为null的没有
                     break;
-                c.right = CTN(e.Current);
+                c.right = TreeNode.Create(e.Current);
 
                 q.Enqueue(c.left); // 即使为null也要入队
                 q.Enqueue(c.right);
@@ -64,25 +66,34 @@ namespace LCDS
 
             return root;
         }
+        // 与先序遍历有一些不同，必须有一个参数用于判断左子树是否已经处理过了；序列中所有叶子结点后都要跟两个null
         internal static TreeNode CreateByPreOrder(IEnumerable<int?> values)
-            => throw new NotImplementedException();
-        // {
-        //     var e = values.GetEnumerator();
-        //     if (e.MoveNext() == false)
-        //         return null;
+        {
+            var e = values.GetEnumerator();
+            if (e.MoveNext() == false)
+                return null;
 
-        //     var s = new Stack<TreeNode>();
-        //     var root = CTN(e.Current);
-        //     s.Push(root);
+            var s = new Stack<(TreeNode, bool)>(); // 不能有为null的，因为序列里没有层次遍历中那些父结点为null但仍存在序列里的元素
+            var root = TreeNode.Create(e.Current);
+            s.Push((root, false));
 
-        //     while(e.MoveNext() != false)
-        //     {
-        //         var c = s.Pop();
+            while (e.MoveNext() != false)
+            {
+                var (c, visited) = s.Pop();
+                var node = TreeNode.Create(e.Current);
 
-        //     }
+                if (!visited)
+                {
+                    s.Push((c, true));
+                    if ((c.left = node) != null)
+                        s.Push((c.left, false));
+                }
+                else if ((c.right = node) != null)
+                    s.Push((c.right, false));
+            }
 
-        //     return root;
-        // }
+            return root;
+        }
         internal static TreeNode CreateByInOrder(IEnumerable<int?> values)
             => throw new NotImplementedException();
         internal static TreeNode CreateByPostOrder(IEnumerable<int?> values)
@@ -94,10 +105,10 @@ namespace LCDS
         // 基本上就是书上的做法，只是为了返回null，循环条件改了一下
         internal static IEnumerable<int?> AsEnumerableByPreOrder(TreeNode tn)
         {
-            var s = new Stack<TreeNode>();
+            var s = new Stack<TreeNode>(); // 可以含有null
             while (true) // 书上这里是s.Count!=0 || tn != null，具体可看104题的第二个解法
             {
-                yield return tn?.val; // 如果此处tn为null时不返回，就是纯的先序序列
+                yield return tn?.val; // 此处如果tn不为null时才return，就是纯的先序序列
                 if (tn != null)
                 {
                     s.Push(tn); // 压栈自己，把当前设为左边
@@ -192,15 +203,15 @@ namespace LCDS
     public class TreeNodeTest
     {
         [Theory]
-        [InlineData(TraversalType.LevelOrder)]
-        public void CreateTreeByLevelOrderTest1(TraversalType ttype)
+        [MemberData(nameof(CreateTreeTest1Data))]
+        public void CreateTreeTest1(TraversalType ttype, int?[] data)
         {
             /*  3
                / \
               9  20
                 /  \
                15   7 */
-            var tree = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 }, ttype);
+            var tree = TreeNode.Create(data, ttype);
             // 按照先序断言
             Assert.Equal(3, tree.val);
             Assert.Equal(9, tree.left.val);
@@ -214,9 +225,15 @@ namespace LCDS
             Assert.Null(tree.right.right.left);
             Assert.Null(tree.right.right.right);
         }
+        public static IEnumerable<object[]> CreateTreeTest1Data()
+        {
+            yield return new object[] { TraversalType.LevelOrder, new int?[] { 3, 9, 20, null, null, 15, 7 } };
+            yield return new object[] { TraversalType.PreOrder, new int?[] { 3, 9, null, null, 20, 15, null, null, 7 } };
+        }
+
         [Theory]
-        [InlineData(TraversalType.LevelOrder)]
-        public void CreateTreeByLevelOrderTest2(TraversalType ttype)
+        [MemberData(nameof(CreateTreeTest2Data))]
+        public void CreateTest2(TraversalType ttype, int?[] data)
         {
             /*     1
                   / \
@@ -225,7 +242,7 @@ namespace LCDS
                3   3
               / \
              4   4        */
-            var tree = TreeNode.Create(new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 }, ttype);
+            var tree = TreeNode.Create(data, ttype);
             Assert.Equal(1, tree.val);
             Assert.Equal(2, tree.left.val);
             Assert.Equal(3, tree.left.left.val);
@@ -241,6 +258,11 @@ namespace LCDS
             Assert.Equal(2, tree.right.val);
             Assert.Null(tree.right.left);
             Assert.Null(tree.right.right);
+        }
+        public static IEnumerable<object[]> CreateTreeTest2Data()
+        {
+            yield return new object[] { TraversalType.LevelOrder, new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 } };
+            yield return new object[] { TraversalType.PreOrder, new int?[] { 1, 2, 3, 4, null, null, 4, null, null, 3, null, null, 2 } };
         }
 
         [Fact]
@@ -269,6 +291,8 @@ namespace LCDS
             Assert.Equal(f2.Method, f1);
         }
 
+        // [Theory]
+        // [MemberData(nameof(CreateTreeTest2Data))]
         [Fact]
         public static void AsEnumerableTest()
         {
@@ -279,5 +303,11 @@ namespace LCDS
             var expect = new int?[] { 3, 9, 20, null, null, 15, 7 };
             Assert.Equal(expect, result);
         }
+        // 不同的树（创建方式可以只选一种，上面测试过了），选择不同的序列化方式，得到对应的结果：（树的序列，序列化方式，结果）；太多了，暂时不测试
+        // public static IEnumerable<object[]> AsEnumerableTestData()
+        // {
+        //     yield return new object[] { TraversalType.LevelOrder, new int?[] { 1, 2, 2, 3, 3, null, null, 4, 4 } };
+        //     yield return new object[] { TraversalType.PreOrder, new int?[] { 1, 2, 3, 4, null, null, 4, null, null, 3, null, null, 2 } };
+        // }
     }
 }
