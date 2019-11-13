@@ -101,6 +101,12 @@ namespace LCDS
 
         public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.LevelOrder) =>
             Dispatch<IEnumerable<int?>>(nameof(AsEnumerable), ttype, tn);
+        public static IEnumerable<int> AsEnumerableNoNull(this TreeNode tn, TraversalType ttype = TraversalType.LevelOrder)
+        {
+            foreach (var node in tn.AsEnumerable(ttype))
+                if (node != null)
+                    yield return node.Value;
+        }
 
         // 基本上就是书上的做法，只是为了返回null，循环条件改了一下
         internal static IEnumerable<int?> AsEnumerableByPreOrder(TreeNode tn)
