@@ -36,11 +36,11 @@ namespace Tools.Gen
                     throw new IOException(folderName + " already exists!");
             Directory.CreateDirectory(folderName);
 
-            string csFileContent = File.ReadAllText(csTemplatePath).Replace("<NS>", ns);
+            string csFileContent = File.ReadAllText(csTemplatePath).Replace("<NS>", ns)
+                .Replace("<SN>.", serialNum); // 现在serialNumber的结果有个点，把模板里的点去掉又不太合适，就在这里去掉了
             string readmeFileContent = File.ReadAllText(readmeTemplatePath)
-                .Replace("<Problem>", string.Join(" ", Args))
-                .Replace("<URL>", urlBase + urlSuffix + "/")
-                .Replace("<SN>", serialNum);
+                .Replace("<Problem>", serialNum + " " + string.Join(" ", body))
+                .Replace("<URL>", urlBase + urlSuffix + "/");
 
             WriteContent(csFilePath, csFileContent);
             WriteContent(readmeFilePath, readmeFileContent);
@@ -218,6 +218,15 @@ namespace Tools.Gen.Test
             string[] result = context.ParseBody();
             string result2 = string.Join('-', result).ToLowerInvariant();
             Assert.Equal(expect, result2);
+        }
+
+        [Fact]
+        public void OptionsTest()
+        {
+            var args = "/f 1. Two Sum".Split();
+            var ctx = new ArgumentContext(args);
+            Assert.True(ctx.ParseForceCreate());
+            Assert.False(ctx.ParseBody()[0] == "/f");
         }
     }
     public class ErrorTest
