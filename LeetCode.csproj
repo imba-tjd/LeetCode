@@ -1,9 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <!-- <OutputType>Exe</OutputType> -->
-    <TargetFramework>netcoreapp3.0</TargetFramework>
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +11,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <Compile Include="**/*.cs" Exclude="template/**;;Tools/**;$(DefaultItemExcludes)" />
+    <Compile Remove="template/**;Tools/**" />
   </ItemGroup>
 
 </Project>

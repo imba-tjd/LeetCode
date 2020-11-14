@@ -1,17 +1,14 @@
 name: .NET Core
 
-on: [push, pull_request]
+on: push
 
 jobs:
   build:
-
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v2
+    - uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.100
-    - name: Build and test with dotnet
-      run: dotnet test
+        dotnet-version: 5.0.x
+    - run: dotnet test
