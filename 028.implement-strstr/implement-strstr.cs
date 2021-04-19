@@ -9,7 +9,7 @@ namespace Problems.Problem028.ImplementstrStr
     {
         public int StrStr(string haystack, string needle)
         {
-            for (int i = 0; i + needle.Length <= haystack.Length; i++)
+            for (int i = 0; i <= haystack.Length - needle.Length; i++)
             {
                 // bool ok = true;
                 int j = -1;

@@ -2,7 +2,7 @@
 
 Return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 
-What should we return when needle is an empty string? This is a great question to ask during an interview.For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's `strstr()` and Java's `indexOf()`.
+当needle为空时选择返回0，这与C的strstr和Java的indexOf一致。
 
 ## Remarks
 
@@ -46,5 +46,5 @@ next数组：
 
 参考：
 
-* <https://www.zhihu.com/question/21923021>。但最高赞的代码有bug，评论区里指出了
-* <https://www.cnblogs.com/yjiyjige/p/3263858.html>
+* https://www.zhihu.com/question/21923021 但最高赞的代码有bug，评论区里指出了
+* https://www.cnblogs.com/yjiyjige/p/3263858.html
