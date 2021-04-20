@@ -1,13 +1,15 @@
 # [LeetCode](https://leetcode.com/problemset/all)
 
-[![GitHub license](https://img.shields.io/github/license/imba-tjd/LeetCode.svg)](https://github.com/imba-tjd/LeetCode/blob/master/LICENSE) [![Build Status](https://travis-ci.com/imba-tjd/LeetCode.svg?branch=master)](https://travis-ci.com/imba-tjd/LeetCode)
 [![Actions Status](https://github.com/imba-tjd/LeetCode/workflows/.NET%20Core/badge.svg)](https://github.com/imba-tjd/LeetCode/actions)
 
-记录一下我自己的刷题代码。<br>
+记录一下我自己的刷题代码。\
 LeetCode for myself.
 
-希望能坚持吧。<br>
-Hope I can stick to it.
+大部分用的C#，用xUnit做单元测试，配了CI。\
+Using mostly C#, tested with xUnit and CI.
 
-template文件夹是我生成代码的程序。<br>
-I use the program in template folder to generate basic codes.
+代码基本结构用template文件夹中的程序生成。\
+The program in template folder generates basic code.
+
+希望能坚持吧。\
+Hope I can stick to it.
