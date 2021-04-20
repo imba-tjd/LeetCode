@@ -1,6 +1,6 @@
 # [LeetCode](https://leetcode.com/problemset/all)
 
-[![Actions Status](https://github.com/imba-tjd/LeetCode/workflows/.NET%20Core/badge.svg)](https://github.com/imba-tjd/LeetCode/actions)
+[![CI Status](https://github.com/imba-tjd/LeetCode/actions/workflows/ci.yml/badge.svg)](https://github.com/imba-tjd/LeetCode/actions)
 
 记录一下我自己的刷题代码。\
 LeetCode for myself.

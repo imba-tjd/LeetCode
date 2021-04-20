@@ -1,0 +1,14 @@
+name: CI
+on: push
+
+jobs:
+  xUnit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    # - uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 6.0.x
+    # 现在5.0自带，6.0预览版写起来很麻烦
+    - run: dotnet test
