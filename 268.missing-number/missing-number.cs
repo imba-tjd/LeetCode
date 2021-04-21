@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Problems.Problem268.MissingNumber
+namespace LeetCode.Problems.P268MissingNumber
 {
     public interface ISolution { int MissingNumber(int[] nums); }
     class Solution : ISolution

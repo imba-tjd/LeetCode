@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem014.LongestCommonPrefix
+namespace LeetCode.Problems.P014LongestCommonPrefix
 {
     public interface ISolution { string LongestCommonPrefix(string[] strs); }
     class Solution : ISolution

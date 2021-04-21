@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem066.PlusOne
+namespace LeetCode.Problems.P066PlusOne
 {
     public interface ISolution { int[] PlusOne(int[] digits); }
     class Solution : ISolution

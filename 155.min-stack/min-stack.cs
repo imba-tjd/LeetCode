@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem155.MinStack
+namespace LeetCode.Problems.P155MinStack
 {
     public interface ISolution
     {

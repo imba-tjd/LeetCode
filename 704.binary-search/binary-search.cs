@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem704.BinarySearch
+namespace LeetCode.Problems.P704BinarySearch
 {
     public interface ISolution { int Search(int[] nums, int target); }
     class Solution : ISolution

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem083.RemoveDuplicatesfromSortedList
+namespace LeetCode.Problems.P083RemoveDuplicatesfromSortedList
 {
     public interface ISolution { ListNode DeleteDuplicates(ListNode head); }
     class Solution : ISolution

@@ -2,7 +2,7 @@ using System;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem002.AddTwoNumbers
+namespace LeetCode.Problems.P002AddTwoNumbers
 {
     class Solution
     {

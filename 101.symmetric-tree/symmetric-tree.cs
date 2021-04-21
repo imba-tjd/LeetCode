@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem101.SymmetricTree
+namespace LeetCode.Problems.P101SymmetricTree
 {
     public interface ISolution { bool IsSymmetric(TreeNode root); }
 

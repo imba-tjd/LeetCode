@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem088.MergeSortedArray
+namespace LeetCode.Problems.P088MergeSortedArray
 {
     public interface ISolution { void Merge(int[] nums1, int m, int[] nums2, int n); }
     class Solution : ISolution

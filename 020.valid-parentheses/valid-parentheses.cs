@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem020.ValidParentheses
+namespace LeetCode.Problems.P020ValidParentheses
 {
     public interface ISolution { bool IsValid(string s); }
     class Solution : ISolution

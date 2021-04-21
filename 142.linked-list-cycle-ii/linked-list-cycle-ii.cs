@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem142.LinkedListCycleII
+namespace LeetCode.Problems.P142LinkedListCycleII
 {
     public interface ISolution { ListNode DetectCycle(ListNode head); }
     class Solution : ISolution

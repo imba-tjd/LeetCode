@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem001.TwoSum
+namespace LeetCode.Problems.P001TwoSum
 {
     class Solution
     {

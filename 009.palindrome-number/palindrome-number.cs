@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem009.PalindromeNumber
+namespace LeetCode.Problems.P009PalindromeNumber
 {
     public interface ISolution { bool IsPalindrome(int x); }
     class Solution : ISolution

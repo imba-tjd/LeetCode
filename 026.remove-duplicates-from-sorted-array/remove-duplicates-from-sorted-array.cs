@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem026.RemoveDuplicatesfromSortedArray
+namespace LeetCode.Problems.P026RemoveDuplicatesfromSortedArray
 {
     public interface ISolution { int RemoveDuplicates(int[] nums); }
     class Solution : ISolution

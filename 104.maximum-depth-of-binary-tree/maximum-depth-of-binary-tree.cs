@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem104.MaximumDepthofBinaryTree
+namespace LeetCode.Problems.P104MaximumDepthofBinaryTree
 {
     public interface ISolution { int MaxDepth(TreeNode root); }
     class Solution : ISolution

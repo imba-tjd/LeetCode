@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem287.FindtheDuplicateNumber
+namespace LeetCode.Problems.P287FindtheDuplicateNumber
 {
     public interface ISolution { int FindDuplicate(int[] nums); }
     class Solution : ISolution

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem069.Sqrtx
+namespace LeetCode.Problems.P069Sqrtx
 {
     public interface ISolution { int MySqrt(int x); }
     class Solution : ISolution

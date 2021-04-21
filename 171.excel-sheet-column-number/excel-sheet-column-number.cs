@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem171.ExcelSheetColumnNumber
+namespace LeetCode.Problems.P171ExcelSheetColumnNumber
 {
     public interface ISolution { int TitleToNumber(string s); }
     class Solution : ISolution

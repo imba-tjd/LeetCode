@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Xunit;
 using LCDS;
 
-namespace Problems.Problem112.PathSum
+namespace LeetCode.Problems.P112PathSum
 {
     public interface ISolution { bool HasPathSum(TreeNode root, int sum); }
     class Solution : ISolution

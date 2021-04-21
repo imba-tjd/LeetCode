@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Problems.Problem007.ReverseInteger
+namespace LeetCode.Problems.P007ReverseInteger
 {
     public interface ISolution { int Reverse(int x); }
     public class Solution : ISolution

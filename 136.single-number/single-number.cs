@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace Problems.Problem136.SingleNumber
+namespace LeetCode.Problems.P136SingleNumber
 {
     public interface ISolution { int SingleNumber(int[] nums); }
     class Solution : ISolution
