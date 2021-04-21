@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Xunit;
 
-namespace LeetCode.P<SN><NS>
+namespace LeetCode.Problems.P<SN><NS>
 {
     public interface ISolution { <Fun>; }
     class Solution : ISolution
