@@ -1,18 +1,12 @@
 # Code Template
 
-Try to DRY creating practice files.
+DRY creating code files.
 
-* Usage: `Gen.exe [/f] 1. Two Sum`
+Usage: `Gen.exe 1. Two Sum`. It uses `.t` template file to generate corresponding folder, cs, readme.
 
-Note: The CLI must be *cmd* because parentheses are special characters in PS and Bash. Adding quotation marks can solve this but it's a burden.
+There is no flags. If the folder already exists, it simply fails.
 
-## 思路
-
-分为两个部分：解析输入，和根据要求创建文件。
-
-输入分为三个部分：选项、序号、剩余部分。需要研究如何方便地增加选项，以及在不使用反射的情况下把选项和解析出来的东西联系起来。
-
-文件，可能需要include这样的特性。现在生成和树有关的模板用的是手动复制的。
+Note: The shell **must be cmd**, because parentheses are special characters in PS and Bash. Adding quotation marks can solve this but it's a burden, so this tool is designed to parse multiple args and can't accept one arg that contains quotation marks.
 
 ## Test Cases
 

@@ -1,175 +1,81 @@
 using System;
 using System.IO;
 
-namespace Tools.Gen
+#if NDEBUG
+using Leetcode.Tools.Gen;
+class Program
 {
-#if !DEBUG
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args) => new Generator(args).Run();
+        if (args.Length == 0)
+            Console.WriteLine("Generate basic code files.");
+        else if (args[0][0] == '/')
+            Console.WriteLine("There is no flags.");
+        else
+        {
+            var ctx = new NameContext(args);
+            var fg = new FileGenerator(ctx);
+            fg.CreateFolder();
+            fg.CreateFiles();
+        }
     }
+}
 #endif
-    class Generator
+
+namespace Leetcode.Tools.Gen
+{
+    public class NameContext
     {
-        const string csTemplatePath = "template/Solution.cs.template";
-        const string readmeTemplatePath = "template/Readme.md.template";
-        const string urlBase = "https://leetcode.com/problems/";
-        bool IsForceCreate = false;
-        string[] Args { get; }
-        public Generator(string[] args) => Args = args;
-
-        public int Run() // 1. Two Sum (extra)
+        public int SerialNumber { get; }
+        public string[] Body { get; }
+        public NameContext(string[] args) // 例如 1. Two Sum (extra)
         {
-            if (0 != HandleArgs(out IsForceCreate, out string serialNum, out string[] body))
-                return 1;
-
-            string urlSuffix = string.Join("-", body).ToLowerInvariant(); // two-sum-extra
-            string folderName = serialNum?.PadLeft(4, '0') + urlSuffix; // 001.two-sum-extra，序号不存在时不会有pading的0
-            string csFilePath = Path.Combine(folderName, urlSuffix + ".cs"); // two-sum-extra.cs
-            string readmeFilePath = Path.Combine(folderName, "Readme.md");
-            string ns = string.Join("", body); // TwoSumextra，需要自己把extra删掉
-
-            if (Directory.Exists(folderName))
-                if (IsForceCreate)
-                    Directory.Delete(folderName, true); // 如果目标不存在会抛异常，所以必须先判断
-                else
-                    throw new IOException(folderName + " already exists!");
-            Directory.CreateDirectory(folderName);
-
-            string csFileContent = File.ReadAllText(csTemplatePath).Replace("<NS>", ns)
-                .Replace("<SN>.", serialNum); // 现在serialNumber的结果有个点，把模板里的点去掉又不太合适，就在这里去掉了
-            string readmeFileContent = File.ReadAllText(readmeTemplatePath)
-                .Replace("<Problem>", serialNum + " " + string.Join(" ", body))
-                .Replace("<URL>", urlBase + urlSuffix + "/");
-
-            WriteContent(csFilePath, csFileContent);
-            WriteContent(readmeFilePath, readmeFileContent);
-
-            return 0;
+            if (args.Length < 2 || args[0][args[0].Length - 1] != '.')
+                throw new ArgumentException("Missing Serial Number or body or both.", nameof(args));
+            SerialNumber = int.Parse(args[0].TrimEnd('.')); // 1
+            if (SerialNumber <= 0)
+                throw new ArgumentException("Invalid Serial Number.", nameof(args));
+            Body = args.SubArray(1).SelectInPlace(x => x.Replace("(", "").Replace(")", "").Replace(",", "")); // Two Sum extra
         }
+        public NameContext(int serialNum, string[] body) => (SerialNumber, Body) = (serialNum, body);
+        public string SerialNumberString => SerialNumber.ToString("000");
+        public string URLSuffix => string.Join("-", Body).ToLower(); // two-sum-extra
+        public string FolderName => SerialNumberString + "." + URLSuffix; // 001.two-sum-extra
+        string CsFileName => URLSuffix + ".cs"; // two-sum-extra.cs；但现在决定弃用，就用Code.cs
+        public string CsFilePath => FolderName + "/" + CsFileName;
+        public string ReadmeFilePath => FolderName + "/" + "Readme.md";
+        public string NameSpace => string.Join("", Body);
+        const string URLBase = "https://leetcode.com/problems/";
+        public string URL => URLBase + URLSuffix + "/";
+        public string ProblemTitle => SerialNumber + " " + string.Join(" ", Body);
+    }
 
-        void WriteContent(string path, string content)
+    public class FileGenerator
+    {
+        const string CsTemplatePath = "template/Code.cs.t";
+        const string ReadmeTemplatePath = "template/Readme.md.t";
+
+        NameContext NC { get; }
+        public FileGenerator(NameContext ctx) => NC = ctx;
+
+        public void CreateFolder()
         {
-            if (File.Exists(path))
-                throw new IOException(path + " already exists!");
-            File.WriteAllText(path, content);
+            if (Directory.Exists(NC.FolderName))
+                throw new IOException(NC.FolderName + " already exists!");
+            Directory.CreateDirectory(NC.FolderName);
         }
-        int HandleArgs(out bool isForceCreate, out string serialNumber, out string[] body)
+        public void CreateFiles()
         {
-            int ShowError(ArgumentContext cont)
-            {
-                Console.WriteLine(cont.ErrorMessage);
-                return (int)cont.ErrorCode;
-            }
-
-            serialNumber = null;
-            body = null;
-            isForceCreate = false;
-            var context = new ArgumentContext(Args);
-
-            bool? fc = context.ParseForceCreate();
-            if (fc == null)
-                return ShowError(context);
-            isForceCreate = fc.Value;
-
-            serialNumber = context.ParseSerialNumber();
-            if (serialNumber == null)
-                return ShowError(context);
-            else if (serialNumber == string.Empty)
-                serialNumber = null;
-
-            body = context.ParseBody();
-            if (body == null)
-                return ShowError(context);
-            return 0;
+            string csFileContent = File.ReadAllText(CsTemplatePath)
+                .Replace("<NS>", NC.NameSpace).Replace("<SN>", NC.SerialNumberString);
+            string readmeFileContent = File.ReadAllText(ReadmeTemplatePath)
+                .Replace("<Problem>", NC.ProblemTitle).Replace("<URL>", NC.URL);
+            File.WriteAllText(NC.CsFilePath, csFileContent);
+            File.WriteAllText(NC.ReadmeFilePath, readmeFileContent);
         }
     }
-    enum ErrorType
-    {
-        Normal = 0,
-        ShowUsage = 0,
-        InvalidFlag,
-        InvalidSerialNumber,
-        MissingBody
-    }
-    class ArgumentContext
-    {
-        static System.Collections.Generic.Dictionary<ErrorType, string> ErrorMessages =
-            new System.Collections.Generic.Dictionary<ErrorType, string>()
-            {
-                {ErrorType.ShowUsage, "Usage: Gen.exe [/f] 1. Two Sum"},
-                {ErrorType.InvalidFlag, "Invalid Flag: "},
-                {ErrorType.InvalidSerialNumber, "Invalid Serial Number: "},
-                {ErrorType.MissingBody, "Missing Question Body!"}
-            };
-        internal ErrorType ErrorCode { get; private set; }
-        internal string ErrorMessage => ErrorMessages[ErrorCode];
-        string[] Args { get; }
-        int _position;
 
-        internal ArgumentContext(string[] args) => Args = args;
-        internal bool? ParseForceCreate()
-        {
-            if (Args.Length == 0 || Args[0] == "/h")
-            {
-                Console.WriteLine();
-                ErrorCode = ErrorType.Normal;
-                return null;
-            }
-            else if (Args[0] == "/f")
-            {
-                _position++;
-                return true;
-            }
-            else if (Args[0][0] == '/')
-            {
-                Console.WriteLine("Invalid Argument: " + Args[0]);
-                ErrorCode = ErrorType.InvalidFlag;
-                return null;
-            }
-            return false;
-        }
-        internal string ParseSerialNumber()
-        {
-            string SetError()
-            {
-                ErrorCode = ErrorType.InvalidSerialNumber;
-                return null;
-            }
-
-            if (_position == Args.Length)
-                return string.Empty;
-            ref string number = ref Args[_position];
-            if (!char.IsNumber(number[0])) // number不存在
-                return string.Empty;
-            for (int i = 1; i < number.Length - 1; i++)
-                if (!char.IsNumber(number[i])) // 有非数字字符
-                    return SetError();
-            if (number[number.Length - 1] != '.')
-                return SetError();
-            _position++;
-            return number;
-        }
-        internal string[] ParseBody()
-        {
-            if (_position == Args.Length)
-            {
-                ErrorCode = ErrorType.MissingBody;
-                return null;
-            }
-            return Args.SubArray(_position).Select(x =>
-                x.Replace("(", string.Empty)
-                .Replace(")", string.Empty)
-                .Replace(",", string.Empty)
-            );
-        }
-
-        // string ParseExtra() {
-        //     ref string last = ref Args[Args.Length - 1];
-        //     extra = last[0] == '(' ? last.Substring(1, last.Length - 2) : string.Empty; // extra
-        // }
-    }
-    internal static class GenExpansion
+    internal static class DNFCompatibleExpansion
     {
         internal static T[] SubArray<T>(this T[] src, int index) => SubArray(src, index, src.Length - index);
         internal static T[] SubArray<T>(this T[] src, int index, int length)
@@ -178,91 +84,63 @@ namespace Tools.Gen
             Array.Copy(src, index, result, 0, length);
             return result;
         }
-        internal static T[] Select<T>(this T[] src, Func<T, T> selector)
+        internal static T[] SelectInPlace<T>(this T[] src, Func<T, T> selector)
         {
-            T[] result = new T[src.Length];
             for (int i = 0; i < src.Length; i++)
-                result[i] = selector(src[i]);
-            return result;
+                src[i] = selector(src[i]);
+            return src;
         }
     }
 }
-#if DEBUG
-namespace Tools.Gen.Test
+
+#if !NDEBUG
+namespace Leetcode.Tools.Gen.Test
 {
     using System.Collections.Generic;
     using Xunit;
-    using System.Reflection;
-    public class ArgumentContextTest
+    using System.Linq;
+    public class NameContextTest
     {
-        static Dictionary<string, string> BodyTestCases = new Dictionary<string, string>()
-        {
-            { "Sqrt(x)", "sqrtx" },
-            { "Pow(x, n)", "powx-n" },
-            { "Implement strStr()", "implement-strstr" },
-            { "String to Integer (atoi)", "string-to-integer-atoi" },
-            { "Implement Trie (Prefix Tree)", "implement-trie-prefix-tree" }
+        static readonly IReadOnlyList<(string, string)> URLSuffixTestCases = new[] {
+            ("Sqrt(x)", "sqrtx"),
+            ("Pow(x, n)", "powx-n"),
+            ("Implement strStr()", "implement-strstr"),
+            ("String to Integer (atoi)", "string-to-integer-atoi"),
+            ("Implement Trie (Prefix Tree)", "implement-trie-prefix-tree")
         };
 
-        public static IEnumerable<object[]> TestData()
+        public static IEnumerable<object[]> URLSuffixTestData()
         {
-            foreach (var item in BodyTestCases)
-                yield return new object[] { item.Key.Split(' '), item.Value };
+            foreach (var item in URLSuffixTestCases)
+                yield return new object[] { item.Item1.Split(' ').Prepend("1."), item.Item2 };
         }
 
         [Theory]
-        [MemberData(nameof(TestData))]
-        public void BodyTest(string[] args, string expect)
+        [MemberData(nameof(URLSuffixTestData))]
+        public void URLSuffixTest(string[] args, string expect)
         {
-            var context = new ArgumentContext(args);
-            string[] result = context.ParseBody();
-            string result2 = string.Join('-', result).ToLowerInvariant();
-            Assert.Equal(expect, result2);
+            var ctx = new NameContext(args);
+            Assert.Equal(expect, ctx.URLSuffix);
+        }
+
+        [Theory]
+        [InlineData(new[] { "1.", "" }, "001")]
+        [InlineData(new[] { "11.", "" }, "011")]
+        [InlineData(new[] { "111.", "" }, "111")]
+        [InlineData(new[] { "1111.", "" }, "1111")]
+        public void SerialNumberStringTest(string[] args, string expect)
+        {
+            var ctx = new NameContext(args);
+            Assert.Equal(expect, ctx.SerialNumberString);
         }
 
         [Fact]
-        public void OptionsTest()
+        public void ErrorTest()
         {
-            var args = "/f 1. Two Sum".Split();
-            var ctx = new ArgumentContext(args);
-            Assert.True(ctx.ParseForceCreate());
-            Assert.False(ctx.ParseBody()[0] == "/f");
-        }
-    }
-    public class ErrorTest
-    {
-        static Dictionary<string, ErrorType> TestCases = new Dictionary<string, ErrorType>()
-        {
-            { "asdf", ErrorType.Normal },
-            { "/f asdf", ErrorType.Normal },
-            { "/f 1. asdf", ErrorType.Normal },
-            { "1. asdf", ErrorType.Normal },
-            { "/h", ErrorType.ShowUsage },
-
-            { "/a", ErrorType.InvalidFlag },
-            { "/", ErrorType.InvalidFlag },
-            { "1asdf", ErrorType.InvalidSerialNumber },
-            { "/f 1asdf", ErrorType.InvalidSerialNumber },
-            { "1.", ErrorType.MissingBody },
-            { "/f", ErrorType.MissingBody },
-            { "/f 1.", ErrorType.MissingBody },
-        };
-
-        public static IEnumerable<object[]> TestData()
-        {
-            foreach (var item in TestCases)
-                yield return new object[] { item.Key.Split(' '), (int)item.Value };
-        }
-
-        [Theory]
-        [MemberData(nameof(TestData))]
-        public void Test(string[] args, int expect)
-        {
-            var gen = new Generator(args);
-            var fun = gen.GetType().GetMethod("HandleArgs", BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.NotNull(fun);
-            int result = (int)fun.Invoke(gen, new object[] { null, null, null });
-            Assert.Equal(expect, result);
+            Assert.Throws<ArgumentException>(() => new NameContext(new string[] { }));
+            Assert.Throws<ArgumentException>(() => new NameContext(new[] { "1." }));
+            Assert.Throws<ArgumentException>(() => new NameContext(new[] { "asdf", "" }));
+            Assert.Throws<FormatException>(() => new NameContext(new[] { "1asdf.", "" }));
         }
     }
 }
