@@ -69,6 +69,6 @@ namespace Problems.Problem111.MinimumDepthofBinaryTree
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
 }

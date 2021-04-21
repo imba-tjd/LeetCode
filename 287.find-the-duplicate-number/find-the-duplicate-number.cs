@@ -114,9 +114,9 @@ namespace Problems.Problem287.FindtheDuplicateNumber
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { override protected ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { override protected ISolution GetSo => new Solution3(); }
-    public class Test4 : MultiTest { override protected ISolution GetSo => new Solution4(); }
-    public class Test5 : MultiTest { override protected ISolution GetSo => new Solution5(); }
+    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test4 : MultiTest { protected override ISolution GetSo => new Solution4(); }
+    public class Test5 : MultiTest { protected override ISolution GetSo => new Solution5(); }
 }

@@ -93,7 +93,7 @@ namespace Problems.Problem004.MedianofTwoSortedArrays
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { override protected ISolution GetSo => new Solution1(); }
-    public class Test2 : MultiTest { override protected ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { override protected ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution1(); }
+    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
 }
