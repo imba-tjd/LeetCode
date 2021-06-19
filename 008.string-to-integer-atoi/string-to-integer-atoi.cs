@@ -31,7 +31,7 @@ namespace LeetCode.Problems.P008StringtoIntegeratoi
                     checked { value = value * 10 + (span[position] - '0'); }
                     position++;
                 }
-                catch
+                catch (OverflowException)
                 {
                     return negative ? int.MinValue : int.MaxValue;
                 }

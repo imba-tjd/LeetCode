@@ -7,6 +7,9 @@ namespace LeetCode.DataStructures.Array
     {
         public static string ToStringEx<T>(this T[] arr)
         {
+            if (arr is null)
+                throw new System.NullReferenceException(nameof(arr));
+
             var sb = new StringBuilder();
             sb.Append('[');
             foreach (T item in arr)
@@ -29,6 +32,13 @@ namespace LeetCode.DataStructures.Array.Test
         public void Test(int[] arr, string expect)
         {
             Assert.Equal(expect, arr.ToStringEx());
+        }
+
+        [Fact]
+        public void TestNull()
+        {
+            int[] arr = null;
+            Assert.Throws<System.NullReferenceException>(() => arr.ToStringEx());
         }
     }
 }

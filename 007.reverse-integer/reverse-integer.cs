@@ -32,7 +32,7 @@ namespace LeetCode.Problems.P007ReverseInteger
                 return 0;
             var arr = Math.Abs(x).ToString().ToCharArray();
             Array.Reverse(arr);
-            int.TryParse(arr, out int result);
+            _ = int.TryParse(arr, out int result);
             if (x < 0)
                 result = -result;
             return result;

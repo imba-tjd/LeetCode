@@ -96,6 +96,7 @@ namespace LeetCode.Problems.P028ImplementstrStr
         }
     }
 
+    // TODO: 好像需要多测试
     // abstract
     public class MultiTest
     {

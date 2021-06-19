@@ -34,7 +34,7 @@ namespace LeetCode.Problems.P141LinkedListCycle
                 if (ln1 == ln2)
                     return true;
                 ln1 = ln1?.next;
-                ln2 = ln2?.next?.next;
+                ln2 = ln2?.next?.next; // TODO: ln2永远不会是null
             }
             return false;
         }
