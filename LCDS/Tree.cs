@@ -1,6 +1,4 @@
 // 二叉树
-using System;
-using System.Collections.Generic;
 using Xunit;
 
 namespace LCDS

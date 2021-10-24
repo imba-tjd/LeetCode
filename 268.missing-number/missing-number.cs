@@ -1,4 +1,3 @@
-using System;
 using Xunit;
 
 namespace LeetCode.Problems.P268MissingNumber
