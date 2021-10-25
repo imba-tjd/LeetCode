@@ -1,4 +1,4 @@
 *.exe
-obj
-bin
-.vscode
+obj/
+bin/
+.vscode/
