@@ -1,4 +1,3 @@
-// 二叉树
 using Xunit;
 
 namespace LeetCode.DataStructures
@@ -203,7 +202,10 @@ namespace LeetCode.DataStructures
             p == null || q == null ? false :
             p.val == q.val;
     }
+}
 
+namespace LeetCode.DataStructures.Test
+{
     public class TreeNodeTest
     {
         [Theory]
