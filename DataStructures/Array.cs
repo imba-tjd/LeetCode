@@ -1,7 +1,7 @@
 using System.Text;
 using Xunit;
 
-namespace LeetCode.DataStructures.Array
+namespace LeetCode.DataStructures
 {
     public static class ArrayExtension
     {
@@ -22,7 +22,7 @@ namespace LeetCode.DataStructures.Array
     }
 }
 
-namespace LeetCode.DataStructures.Array.Test
+namespace LeetCode.DataStructures.Test
 {
     public class ToStringExTest
     {

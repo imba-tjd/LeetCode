@@ -1,7 +1,7 @@
 // 二叉树
 using Xunit;
 
-namespace LCDS
+namespace LeetCode.DataStructures
 {
     public class TreeNode
     {
