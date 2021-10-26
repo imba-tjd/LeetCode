@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P203RemoveLinkedListElements
 {
@@ -44,9 +44,9 @@ namespace LeetCode.Problems.P203RemoveLinkedListElements
         public void Test(int[] input, int val, int[] expect)
         {
             var so = GetSo;
-            var ln = ListNode.Create(input);
+            var ln = ListNodeHelper.Create(input);
             var result = so.RemoveElements(ln, val);
-            Assert.Equal(expect, result.ToArray());
+            Assert.Equal(expect, ListNodeHelper.AsEnumerable(result));
         }
     }
     public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }

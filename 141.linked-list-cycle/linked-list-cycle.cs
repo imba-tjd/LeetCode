@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P141LinkedListCycle
 {
@@ -48,9 +48,9 @@ namespace LeetCode.Problems.P141LinkedListCycle
         public void Test(int[] arr, int pos, bool expect)
         {
             var so = GetSo;
-            var ln = ListNode.Create(arr);
+            var ln = ListNodeHelper.Create(arr);
             if (pos != -1)
-                ln.Tail().next = ln.At(pos);
+                ListNodeHelper.Tail(ln).next = ListNodeHelper.At(ln, pos);
 
             var result = so.HasCycle(ln);
             Assert.Equal(expect, result);

@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P002AddTwoNumbers
 {
@@ -10,7 +10,7 @@ namespace LeetCode.Problems.P002AddTwoNumbers
         {
             int t = (l1?.val ?? 0) + (l2?.val ?? 0) + carry;
             return l1 == null && l2 == null && carry == 0 ? null :
-                new ListNode(t % 10) { next = AddInternal(l1?.next, l2?.next, t / 10) };
+                new ListNode(t % 10, AddInternal(l1?.next, l2?.next, t / 10));
         }
     }
 
@@ -22,8 +22,8 @@ namespace LeetCode.Problems.P002AddTwoNumbers
         [InlineData(3, 9, new[] { 2, 1 })]
         void Test(int a, int b, int[] expects)
         {
-            ListNode l1 = ListNode.Create(a);
-            ListNode l2 = ListNode.Create(b);
+            ListNode l1 = ListNodeHelper.Create(a);
+            ListNode l2 = ListNodeHelper.Create(b);
             var solution = new Solution();
 
             ListNode r = solution.AddTwoNumbers(l1, l2);

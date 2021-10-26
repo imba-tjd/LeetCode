@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P142LinkedListCycleII
 {
@@ -53,12 +53,12 @@ namespace LeetCode.Problems.P142LinkedListCycleII
         public void Test(int[] arr, int pos)
         {
             var so = GetSo;
-            var ln = ListNode.Create(arr);
+            var ln = ListNodeHelper.Create(arr);
             if (pos != -1) // 我的At里是如果index不存在则返回null，但不能依赖它，因为正确效果是抛异常
-                ln.Tail().next = ln.At(pos);
+                ListNodeHelper.Tail(ln).next = ListNodeHelper.At(ln, pos);
 
             var result = so.DetectCycle(ln);
-            Assert.Equal(pos == -1 ? null : ln.At(pos), result);
+            Assert.Equal(pos == -1 ? null : ListNodeHelper.At(ln, pos), result);
         }
     }
     public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }

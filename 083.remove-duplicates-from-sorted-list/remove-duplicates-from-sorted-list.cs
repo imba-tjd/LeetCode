@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P083RemoveDuplicatesfromSortedList
 {
@@ -56,7 +56,7 @@ namespace LeetCode.Problems.P083RemoveDuplicatesfromSortedList
         public void Test(int[] input, int[] expect)
         {
             var so = GetSo;
-            var result = so.DeleteDuplicates(ListNode.Create(input)).ToArray();
+            var result = ListNodeHelper.AsEnumerable(so.DeleteDuplicates(ListNodeHelper.Create(input))).ToArray();
             Assert.Equal(expect, result);
         }
     }

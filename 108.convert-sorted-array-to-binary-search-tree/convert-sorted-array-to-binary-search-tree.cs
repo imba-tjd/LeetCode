@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P108ConvertSortedArraytoBinarySearchTree
 {
@@ -67,7 +67,7 @@ namespace LeetCode.Problems.P108ConvertSortedArraytoBinarySearchTree
         {
             var so = GetSo;
             var result = so.SortedArrayToBST(arr);
-            Assert.Equal(expect, result.AsEnumerable());
+            Assert.Equal(expect, result.AsEnumerable().ToArray());
         }
     }
     public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }

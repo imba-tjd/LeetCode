@@ -1,5 +1,5 @@
 using Xunit;
-using LCDS;
+using LeetCode.DataStructures;
 
 namespace LeetCode.Problems.P021MergeTwoSortedLists
 {
@@ -35,11 +35,12 @@ namespace LeetCode.Problems.P021MergeTwoSortedLists
         [InlineData(new[] { 1, 2, 4 }, new[] { 1, 3, 4 }, new[] { 1, 1, 2, 3, 4, 4 })]
         public void Test(int[] l1a, int[] l2a, int[] expect)
         {
-            var l1 = ListNode.Create(l1a);
-            var l2 = ListNode.Create(l2a);
+            var l1 = ListNodeHelper.Create(l1a);
+            var l2 = ListNodeHelper.Create(l2a);
             var so = GetSo;
+            var merged = so.MergeTwoLists(l1, l2);
 
-            var result = so.MergeTwoLists(l1, l2).ToArray();
+            var result = ListNodeHelper.AsEnumerable(merged).ToArray();
             Assert.Equal(expect, result);
         }
 
