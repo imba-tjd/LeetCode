@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace LeetCode.Problems.P<SN><NS>;
 
 public interface ISolution { <Fun>; }

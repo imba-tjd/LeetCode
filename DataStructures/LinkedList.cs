@@ -1,6 +1,7 @@
 # nullable enable
 
 using Xunit;
+using System.Linq;
 
 namespace LeetCode.DataStructures
 {

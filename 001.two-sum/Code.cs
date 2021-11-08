@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace LeetCode.Problems.P001TwoSum;
 
 class Solution
