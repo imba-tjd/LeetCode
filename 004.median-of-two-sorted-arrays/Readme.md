@@ -1,4 +1,4 @@
-# 4. Median of Two Sorted Arrays
+# [4. Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays/)
 
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
@@ -8,11 +8,14 @@ You may assume nums1 and nums2 cannot be both empty.
 
 ## Remarks
 
-O(log (m+n))的解法过于复杂，不会，见：<https://leetcode.com/articles/median-of-two-sorted-arrays/>，但是测试下来时间并不比我的快。
+普通的O(m+n)思路：每次去掉两个数组中最小的一个，直到取到中位数；如果总个数有偶数个就再取一个求平均。中位数的索引是长度**减一**除以二，因为当长度是偶数如4时4/2==2，但实际应选索引为1和2的两个数的平均。
 
-本来普通的O(m+n)做法很简单的，每次去掉两个数组中最小的一个，直到下一个是中位数；如果总个数有偶数个就再取一个求平均。但是还是花了很多时间来写：
+O(log (m+n))解法的基本思想：
 
-1. 中位数的索引是最后一个数的索引/2，即所有组的长度加起来**减一**除以二。
-2. 因为0是有效索引，a和b必须代表**接下来评估**的位置，不能代表已评估的位置。
-3. 可以用合并排序中的方式简单优化前一部分。
-4. 因为数组越界会抛异常，不是null，并不能用?[]简单解决。
+1. 分别求nums1和nums2的中位数，记作a和b。
+2. 若a==b，则a或b即为所求中位数。
+3. 若a<b，舍弃nums1中较小的一半，同时舍弃nums2中较大的一半，要求两次舍弃的长度相等。
+4. 若a>b，舍弃nums1中较大的一半，同时舍弃nums2中较小的一半，要求两次舍弃的长度相等。
+5. 在3和4保留的两个升序序列中，重复234，直到两个序列中均只含一个元素为止。
+
+这是人能想出来的解法吗？而且这还不是最佳的，这用了二分的思想。最佳的解法需要理解“中位数的作用是什么”，在统计中，中位数被用来：将一个集合划分为两个长度相等的子集，其中一个子集中的元素总是大于另一个子集中的元素。
