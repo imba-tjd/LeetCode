@@ -47,6 +47,32 @@ class Solution3 : ISolution
     }
 }
 
+class Solution4 : ISolution
+{
+    public int RemoveElement(int[] nums, int val)
+    {
+        int n = 0;
+        for (int i = 0; i< nums.Length; i++)
+            if (nums[i] != val)
+                nums[i-n] = nums[i];
+            else
+                n++;
+        return nums.Length - n;
+    }
+}
+
+class Solution5 : ISolution
+{
+    public int RemoveElement(int[] nums, int val)
+    {
+        int k = 0;
+        for (int i = 0; i< nums.Length; i++)
+            if (nums[i] == val)
+                nums[k++] = nums[i];
+        return k;
+    }
+}
+
 abstract
 public class MultiTest
 {
@@ -66,3 +92,5 @@ public class MultiTest
 public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
 public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
 public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+public class Test4 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+public class Test5 : MultiTest { protected override ISolution GetSo => new Solution3(); }
