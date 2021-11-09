@@ -13,3 +13,7 @@ The program in template folder generates basic code.
 
 希望能坚持吧。\
 Hope I can stick to it.
+
+## xUnit使用方法
+
+当需要测试某一实现时，注释掉`abstract`，修改`GetSo`返回指定解法；这样可以在VSC中inline debug。当需要进行多重测试时，取消注释abstract，继承出多个普通类重写GetSo；适用于`dotnet test`。
