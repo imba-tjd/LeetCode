@@ -1,13 +1,15 @@
-# [169. Majority Element](https://leetcode.com/problems/majority-element/)
+# [169. Majority Element](https://leetcode.com/problems/majority-element/) 主元素查找
 
 Given an array of size n, find the majority element. The majority element is the element that appears more than `⌊ n/2 ⌋` times.
 
 ## Remarks
 
-注意虽然也是出现次数最多的，但题目实际上求的是数量超过1/2的，因此可以通过排序后返回length/2解决。不过速度不算太快。
+第一眼看上去是求出现次数最多的，但实际上主元素要求数量超过1/2，因此可以通过排序后取length/2解决。虽然速度不太快。
 
-普通的O(n)方法是用dic记录，遇到次数超过1/2的直接返回就好了，同上也不需要添加完后再去遍历一遍。
+普通的O(n)方法是用dict记录，遇到次数超过1/2的就找到了。
 
-还可以使用随机数的方法，因为每次取都有至少1/2的几率取到。虽然产生随机数也有开销，但数量大时反而快得多。
+最好的算法：把count==0时遇到的元素当作主元素，之后如果遇到相同的“主元素”，就count++，否则count--。原理是主元素最差时也比其它数多1，遇到主元素时计数+1，遇到其它数时计数-1，这样可以把其它数“消除掉”；count==0时需要更新主元素，前面的可以都不要了。
 
-最好的算法：把count==0时遇到的元素当作主要数，之后如果遇到相同的“主要数”，就count++，否则count--。原理是主要数最差时也比其它数多1，遇到主要数时计数+1，遇到其它数时计数-1，这样可以把其它数“消除掉”；但count==0时需要更新主要数，前面的可以都不要了。
+此题目一定存在主元素。若是可能不存在，取length/2就不行了；dict不能提前返回，全添加后找出最大的看是否超过length/2；最好的算法要重新遍历一遍，对找到的元素计数。
+
+若允许不准确，也可随机取，因为每次取都有至少1/2的几率取到，且数量大时这样快得多。
