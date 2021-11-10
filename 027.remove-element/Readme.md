@@ -1,4 +1,4 @@
-# [27. Remove Element](https://leetcode.com/problems/remove-element/)
+# [27. Remove Element](https://leetcode.com/problems/remove-element/) 移除元素
 
 Given an array nums and a value val, remove all instances of that value in-place and return the new length.
 
