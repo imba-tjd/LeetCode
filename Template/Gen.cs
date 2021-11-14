@@ -41,7 +41,7 @@ namespace Leetcode.Tools.Gen
         public string SerialNumberString => SerialNumber.ToString("000");
         public string URLSuffix => string.Join("-", Body).ToLower(); // two-sum-extra
         public string FolderName => SerialNumberString + "." + URLSuffix; // 001.two-sum-extra
-        string CsFileName => URLSuffix + ".cs"; // two-sum-extra.cs；但现在决定弃用，就用Code.cs
+        string CsFileName => "Code.cs"; // URLSuffix + ".cs" -> two-sum-extra.cs；现在决定就用Code.cs
         public string CsFilePath => FolderName + "/" + CsFileName;
         public string ReadmeFilePath => FolderName + "/" + "Readme.md";
         public string NameSpace => string.Join("", Body);
