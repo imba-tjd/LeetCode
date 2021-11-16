@@ -48,7 +48,7 @@ namespace LeetCode.Problems.P637AverageofLevelsinBinaryTree
         public void Test(int?[] treearr, double[] expect)
         {
             var so = GetSo;
-            var tree = TreeNode.Create(treearr);
+            var tree = TreeNodeHelper.Create(treearr);
             var result = so.AverageOfLevels(tree);
             Assert.Equal(expect, result);
         }

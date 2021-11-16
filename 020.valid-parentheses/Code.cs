@@ -22,7 +22,7 @@ class Solution : ISolution
         foreach (char ch in s)
             if ("([{".Contains(ch))
                 stack.Push(ch);
-            else if (!stack.TryPop(out char ch2) || ch != map[ch2])
+            else if (!stack.TryPop(out char ch2) || ch != map[ch2]) // 也可用stack.count==0 || ch!=map[stack.Pop()]
                 return false;
         return stack.Count == 0;
     }

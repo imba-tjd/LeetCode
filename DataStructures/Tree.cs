@@ -1,16 +1,18 @@
-using Xunit;
-
 namespace LeetCode.DataStructures
 {
-    public class TreeNode
+    public class TreeNode : IEquatable<TreeNode>
     {
         public int val;
         public TreeNode left;
         public TreeNode right;
-        public TreeNode(int x) { val = x; }
-        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.LevelOrder)
-            => TreeNodeHelper.Dispatch<TreeNode>(nameof(Create), ttype, values);
-        public static TreeNode Create(int? val) => val == null ? null : new TreeNode(val.Value);
+        public TreeNode(int val, TreeNode left = null, TreeNode right = null) => (this.val, this.left, this.right) = (val, left, right);
+
+        public bool Equals(TreeNode other) => object.Equals(this?.val, other?.val);
+        // public bool Equals(TreeNode other) => this == other;
+        // public static bool operator ==(TreeNode tn1, TreeNode tn2) => object.Equals(tn1?.val, tn2?.val);
+        // public static bool operator !=(TreeNode tn1, TreeNode tn2) => !(tn1 == tn2);
+        // public override bool Equals(object obj) => this.Equals(obj as TreeNode);
+        // public override int GetHashCode() => base.GetHashCode();
     }
 
     public enum TraversalType
@@ -23,10 +25,15 @@ namespace LeetCode.DataStructures
 
     public static class TreeNodeHelper
     {
+        public static TreeNode Create(IEnumerable<int?> values, TraversalType ttype = TraversalType.LevelOrder)
+            => Dispatch<TreeNode>(nameof(Create), ttype, values);
+        public static TreeNode Create(int? val) => val == null ? null : new TreeNode(val.Value);
+
         // 获得CreateByLevelOrder等函数
         internal static System.Reflection.MethodInfo GetFunction(string action, TraversalType ttype) =>
             typeof(TreeNodeHelper).GetMethod(action + "By" + ttype.ToString(),
             System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static);
+
         // 调用函数获得结果
         internal static T Dispatch<T>(string action, TraversalType ttype, params object[] args) =>
             (T)GetFunction(action, ttype).Invoke(null, args);
@@ -34,14 +41,14 @@ namespace LeetCode.DataStructures
         internal static TreeNode CreateByLevelOrder(IEnumerable<int?> values)
         {
             var e = values.GetEnumerator();
-            if (e.MoveNext() == false)
+            if (!e.MoveNext())
                 return null; // []也要返回null而不是抛异常
 
             var q = new Queue<TreeNode>(); // 可以含有null
-            var root = TreeNode.Create(e.Current);
+            var root = TreeNodeHelper.Create(e.Current);
             q.Enqueue(root);
 
-            while (e.MoveNext() != false)
+            while (e.MoveNext())
             {
                 var c = q.Dequeue();
 
@@ -51,11 +58,11 @@ namespace LeetCode.DataStructures
                     else
                         continue;
 
-                c.left = TreeNode.Create(e.Current);
+                c.left = TreeNodeHelper.Create(e.Current);
 
-                if (e.MoveNext() == false) // 允许最后为null的没有
+                if (!e.MoveNext()) // 允许最后为null的没有
                     break;
-                c.right = TreeNode.Create(e.Current);
+                c.right = TreeNodeHelper.Create(e.Current);
 
                 q.Enqueue(c.left); // 即使为null也要入队
                 q.Enqueue(c.right);
@@ -71,13 +78,13 @@ namespace LeetCode.DataStructures
                 return null;
 
             var s = new Stack<(TreeNode, bool)>(); // 不能有为null的，因为序列里没有层次遍历中那些父结点为null但仍存在序列里的元素
-            var root = TreeNode.Create(e.Current);
+            var root = TreeNodeHelper.Create(e.Current);
             s.Push((root, false));
 
             while (e.MoveNext() != false)
             {
                 var (c, visited) = s.Pop();
-                var node = TreeNode.Create(e.Current);
+                var node = TreeNodeHelper.Create(e.Current);
 
                 if (!visited)
                 {
@@ -91,10 +98,8 @@ namespace LeetCode.DataStructures
 
             return root;
         }
-        internal static TreeNode CreateByInOrder(IEnumerable<int?> values)
-            => throw new NotImplementedException();
-        internal static TreeNode CreateByPostOrder(IEnumerable<int?> values)
-            => throw new NotImplementedException();
+        internal static TreeNode CreateByInOrder(IEnumerable<int?> values) => throw new NotImplementedException();
+        internal static TreeNode CreateByPostOrder(IEnumerable<int?> values) => throw new NotImplementedException();
 
         public static IEnumerable<int?> AsEnumerable(this TreeNode tn, TraversalType ttype = TraversalType.LevelOrder) =>
             Dispatch<IEnumerable<int?>>(nameof(AsEnumerable), ttype, tn);
@@ -165,8 +170,7 @@ namespace LeetCode.DataStructures
             }
         }
 
-        internal static IEnumerable<int?> AsEnumerableByPostOrder(TreeNode tn)
-            => throw new NotImplementedException();
+        internal static IEnumerable<int?> AsEnumerableByPostOrder(TreeNode tn) => throw new NotImplementedException();
 
         // 层次遍历。cleanq的作用是消除掉最后的null，只有遇到非null的东西才会一次返回之前储存的null；算深度见104题第三个解法
         internal static IEnumerable<int?> AsEnumerableByLevelOrder(TreeNode tn)
@@ -178,10 +182,8 @@ namespace LeetCode.DataStructures
             var cleanq = new Queue<int?>(); // 普通的遍历不需要这句
             q.Enqueue(tn);
 
-            while (q.Count != 0)
+            while (q.TryDequeue(out var c))
             {
-                var c = q.Dequeue();
-
                 // 普通的遍历不需要几这句，直接yield return就行；要保证q队列里没有null，因此要处根为null的情况
                 cleanq.Enqueue(c?.val);
                 if (c != null)
@@ -195,12 +197,6 @@ namespace LeetCode.DataStructures
                 }
             }
         }
-
-        // 单个结点是否相等
-        public static bool Equals(TreeNode p, TreeNode q) =>
-            p == null && q == null ? true :
-            p == null || q == null ? false :
-            p.val == q.val;
     }
 }
 
@@ -217,7 +213,7 @@ namespace LeetCode.DataStructures.Test
               9  20
                 /  \
                15   7 */
-            var tree = TreeNode.Create(data, ttype);
+            var tree = TreeNodeHelper.Create(data, ttype);
             // 按照先序断言
             Assert.Equal(3, tree.val);
             Assert.Equal(9, tree.left.val);
@@ -248,7 +244,7 @@ namespace LeetCode.DataStructures.Test
                3   3
               / \
              4   4        */
-            var tree = TreeNode.Create(data, ttype);
+            var tree = TreeNodeHelper.Create(data, ttype);
             Assert.Equal(1, tree.val);
             Assert.Equal(2, tree.left.val);
             Assert.Equal(3, tree.left.left.val);
@@ -274,7 +270,7 @@ namespace LeetCode.DataStructures.Test
         [Fact]
         public void CreateTest()
         {
-            var tree = TreeNode.Create(new int?[] { null });
+            var tree = TreeNodeHelper.Create(new int?[] { null });
             Assert.Null(tree);
         }
 
@@ -302,7 +298,7 @@ namespace LeetCode.DataStructures.Test
         [Fact]
         public static void AsEnumerableTest()
         {
-            var tn = TreeNode.Create(new int?[] { 3, 9, 20, null, null, 15, 7 });
+            var tn = TreeNodeHelper.Create(new int?[] { 3, 9, 20, null, null, 15, 7 });
             // var result = tn.AsEnumerable();
             // var expect = new int?[] { 3, 9, null, null, 20, 15, null, null, 7, null, null };
             var result = tn.AsEnumerable(TraversalType.LevelOrder);

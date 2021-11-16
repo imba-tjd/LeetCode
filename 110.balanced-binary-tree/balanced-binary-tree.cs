@@ -31,7 +31,7 @@ namespace LeetCode.Problems.P110BalancedBinaryTree
         public void Test(int?[] treearr, bool expect)
         {
             var so = GetSo;
-            var tree = TreeNode.Create(treearr);
+            var tree = TreeNodeHelper.Create(treearr);
             var result = so.IsBalanced(tree);
             Assert.Equal(expect, result);
         }

@@ -35,7 +35,7 @@ namespace LeetCode.Problems.P226InvertBinaryTree
         public void Test(int?[] treearr, int?[] expect)
         {
             var so = GetSo;
-            var tree = TreeNode.Create(treearr);
+            var tree = TreeNodeHelper.Create(treearr);
             var result = so.InvertTree(tree);
             Assert.Equal(expect, result.AsEnumerable());
         }

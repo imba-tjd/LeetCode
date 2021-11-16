@@ -64,7 +64,7 @@ namespace LeetCode.Problems.P100SameTree
         public void Test(int?[] a, int?[] b, bool expect)
         {
             var so = GetSo;
-            var result = so.IsSameTree(TreeNode.Create(a), TreeNode.Create(b));
+            var result = so.IsSameTree(TreeNodeHelper.Create(a), TreeNodeHelper.Create(b));
             Assert.Equal(expect, result);
         }
     }

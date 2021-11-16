@@ -67,7 +67,7 @@ namespace LeetCode.Problems.P112PathSum
         public void Test(int?[] a, int sum, bool expect)
         {
             var so = GetSo;
-            var result = so.HasPathSum(TreeNode.Create(a), sum);
+            var result = so.HasPathSum(TreeNodeHelper.Create(a), sum);
             Assert.Equal(expect, result);
         }
     }

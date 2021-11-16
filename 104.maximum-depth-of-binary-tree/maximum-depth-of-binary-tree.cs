@@ -90,7 +90,7 @@ namespace LeetCode.Problems.P104MaximumDepthofBinaryTree
         public void Test(int?[] treearr, int expect)
         {
             var so = GetSo;
-            var tree = TreeNode.Create(treearr);
+            var tree = TreeNodeHelper.Create(treearr);
             var result = so.MaxDepth(tree);
             Assert.Equal(expect, result);
         }

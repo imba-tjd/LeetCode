@@ -66,7 +66,7 @@ namespace LeetCode.Problems.P101SymmetricTree
         public void Test(int?[] treearr, bool expect)
         {
             var so = GetSo;
-            var result = so.IsSymmetric(TreeNode.Create(treearr));
+            var result = so.IsSymmetric(TreeNodeHelper.Create(treearr));
             Assert.Equal(expect, result);
         }
     }
