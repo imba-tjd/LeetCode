@@ -48,7 +48,7 @@ namespace LeetCode.Problems.P268MissingNumber
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(new[] { 1 }, 0), InlineData(new[] { 0 }, 1)]
@@ -56,12 +56,11 @@ namespace LeetCode.Problems.P268MissingNumber
         [InlineData(new[] { 9, 6, 4, 2, 3, 5, 7, 0, 1 }, 8)]
         public void Test(int[] input, int expect)
         {
-            var so = GetSo;
-            int result = so.MissingNumber(input);
+            int result = So.MissingNumber(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
 }

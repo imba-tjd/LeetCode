@@ -76,7 +76,7 @@ namespace LeetCode.Problems.P104MaximumDepthofBinaryTree
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -89,13 +89,12 @@ namespace LeetCode.Problems.P104MaximumDepthofBinaryTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, int expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so.MaxDepth(tree);
+            var result = So.MaxDepth(tree);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
 }

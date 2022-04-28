@@ -41,17 +41,16 @@ namespace LeetCode.Problems.P070ClimbingStairs
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(2, 2), InlineData(3, 3), InlineData(4, 5)]
         public void Test(int input, int expect)
         {
-            var so = GetSo;
-            var result = so.ClimbStairs(input);
+            var result = So.ClimbStairs(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

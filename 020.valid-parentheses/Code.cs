@@ -45,7 +45,7 @@ class Solution2 : ISolution
 abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution();
+    protected virtual ISolution So => new Solution();
 
     [Theory]
     [InlineData("()", true), InlineData("()[]{}", true), InlineData("{[]}", true),
@@ -53,10 +53,9 @@ public class MultiTest
     InlineData("", true), InlineData(")", false), InlineData("(", false)]
     public void Test(string input, bool expect)
     {
-        var so = GetSo;
-        bool result = so.IsValid(input);
+        bool result = So.IsValid(input);
         Assert.Equal(expect, result);
     }
 }
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }

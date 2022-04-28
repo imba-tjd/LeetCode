@@ -49,7 +49,7 @@ namespace LeetCode.Problems.P003LongestSubstringWithoutRepeatingCharacters
     }
     public abstract class MultiTest
     {
-        protected abstract ISolution GetSo { get; }
+        protected abstract ISolution So { get; }
 
         [Theory]
         [InlineData("abcabcbb", 3)]
@@ -62,11 +62,10 @@ namespace LeetCode.Problems.P003LongestSubstringWithoutRepeatingCharacters
         [InlineData("", 0)]
         public void Test(string s, int length)
         {
-            var so = GetSo;
-            int result = so.LengthOfLongestSubstring(s);
+            int result = So.LengthOfLongestSubstring(s);
             Assert.Equal(length, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

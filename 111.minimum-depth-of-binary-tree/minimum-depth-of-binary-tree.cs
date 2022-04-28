@@ -47,7 +47,7 @@ namespace LeetCode.Problems.P111MinimumDepthofBinaryTree
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -60,12 +60,11 @@ namespace LeetCode.Problems.P111MinimumDepthofBinaryTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, int expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so.MinDepth(tree);
+            var result = So.MinDepth(tree);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

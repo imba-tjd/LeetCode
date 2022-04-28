@@ -39,7 +39,7 @@ namespace LeetCode.Problems.P069Sqrtx
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(4, 2), InlineData(8, 2), InlineData(9, 3),
@@ -48,11 +48,10 @@ namespace LeetCode.Problems.P069Sqrtx
         ]
         public void Test(int input, int expect)
         {
-            var so = GetSo;
-            var result = so.MySqrt(input);
+            var result = So.MySqrt(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

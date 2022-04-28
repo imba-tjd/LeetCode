@@ -51,7 +51,7 @@ namespace LeetCode.Problems.P112PathSum
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -66,12 +66,11 @@ namespace LeetCode.Problems.P112PathSum
         [MemberData(nameof(TestData))]
         public void Test(int?[] a, int sum, bool expect)
         {
-            var so = GetSo;
-            var result = so.HasPathSum(TreeNodeHelper.Create(a), sum);
+            var result = So.HasPathSum(TreeNodeHelper.Create(a), sum);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
 }

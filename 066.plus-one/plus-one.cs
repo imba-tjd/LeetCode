@@ -38,17 +38,16 @@ namespace LeetCode.Problems.P066PlusOne
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(new[] { 1, 2, 3 }, new[] { 1, 2, 4 }), InlineData(new[] { 9 }, new[] { 1, 0 }), InlineData(new[] { 0 }, new[] { 1 })]
         public void Test(int[] input, int[] expect)
         {
-            var so = GetSo;
-            var result = so.PlusOne(input);
+            var result = So.PlusOne(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

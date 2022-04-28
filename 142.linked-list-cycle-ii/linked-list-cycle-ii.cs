@@ -45,21 +45,20 @@ namespace LeetCode.Problems.P142LinkedListCycleII
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(new[] { 3, 2, 0, -4 }, 1), InlineData(new[] { 1, 2 }, 0), InlineData(new[] { 1 }, -1)]
         public void Test(int[] arr, int pos)
         {
-            var so = GetSo;
             var ln = ListNodeHelper.Create(arr);
             if (pos != -1) // 我的At里是如果index不存在则返回null，但不能依赖它，因为正确效果是抛异常
                 ListNodeHelper.Tail(ln).next = ListNodeHelper.At(ln, pos);
 
-            var result = so.DetectCycle(ln);
+            var result = So.DetectCycle(ln);
             Assert.Equal(pos == -1 ? null : ListNodeHelper.At(ln, pos), result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

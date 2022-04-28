@@ -98,7 +98,7 @@ namespace LeetCode.Problems.P287FindtheDuplicateNumber
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution5();
+        protected virtual ISolution So => new Solution5();
 
         [Theory]
         // [InlineData(new[] { 1, 3, 4, 2, 2 }, 2)]
@@ -106,14 +106,13 @@ namespace LeetCode.Problems.P287FindtheDuplicateNumber
         [InlineData(new[] { 1, 4, 6, 6, 6, 2, 3 }, 6)]
         public void Test(int[] input, int expect)
         {
-            var so = GetSo;
-            var result = so.FindDuplicate(input);
+            var result = So.FindDuplicate(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
-    public class Test4 : MultiTest { protected override ISolution GetSo => new Solution4(); }
-    public class Test5 : MultiTest { protected override ISolution GetSo => new Solution5(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
+    public class Test4 : MultiTest { protected override ISolution So => new Solution4(); }
+    public class Test5 : MultiTest { protected override ISolution So => new Solution5(); }
 }

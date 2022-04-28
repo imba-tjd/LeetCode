@@ -97,7 +97,7 @@ namespace LeetCode.Problems.P028ImplementstrStr
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData("hello", "ll", 2), InlineData("aaaaa", "bba", -1), InlineData("asdf", "asdf", 0),
@@ -105,13 +105,12 @@ namespace LeetCode.Problems.P028ImplementstrStr
         InlineData("mississippi", "issip", 4), InlineData("mississippi", "pi", 9), InlineData("aabaaabaaac", "aabaaac", 4)]
         public void Test(string input, string needle, int expect)
         {
-            var so = GetSo;
-            var result = so.StrStr(input, needle);
+            var result = So.StrStr(input, needle);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 
     public class GetNextTest
     {

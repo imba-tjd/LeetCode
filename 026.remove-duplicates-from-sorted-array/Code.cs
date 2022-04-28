@@ -33,19 +33,18 @@ namespace LeetCode.Problems.P026RemoveDuplicatesfromSortedArray
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(new[] { 1, 1, 2 }, new[] { 1, 2 })]
         [InlineData(new int[]{}, new int[]{})]
         public void Test(int[] input, int[] expect)
         {
-            var so = GetSo;
-            int n = so.RemoveDuplicates(input);
+            int n = So.RemoveDuplicates(input);
             int[] result = input[0..(n)];
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

@@ -40,21 +40,20 @@ namespace LeetCode.Problems.P141LinkedListCycle
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(new[] { 3, 2, 0, -4 }, 1, true), InlineData(new[] { 1, 2 }, 0, true), InlineData(new[] { 1 }, -1, false)]
         public void Test(int[] arr, int pos, bool expect)
         {
-            var so = GetSo;
             var ln = ListNodeHelper.Create(arr);
             if (pos != -1)
                 ListNodeHelper.Tail(ln).next = ListNodeHelper.At(ln, pos);
 
-            var result = so.HasCycle(ln);
+            var result = So.HasCycle(ln);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

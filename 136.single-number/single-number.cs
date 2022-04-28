@@ -48,18 +48,17 @@ namespace LeetCode.Problems.P136SingleNumber
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(new[] { 2, 2, 1 }, 1), InlineData(new[] { 4, 1, 2, 1, 2 }, 4), InlineData(new[] { 1 }, 1)]
         public void Test(int[] input, int expect)
         {
-            var so = GetSo;
-            int result = so.SingleNumber(input);
+            int result = So.SingleNumber(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
 }

@@ -38,18 +38,17 @@ namespace LeetCode.Problems.P035SearchInsertPosition
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(new[] { 1, 3, 5, 6 }, 5, 2), InlineData(new[] { 1, 3, 5, 6 }, 2, 1), InlineData(new[] { 1, 3, 5, 6 }, 7, 4),
         InlineData(new[] { 1, 3, 5, 6 }, 0, 0), InlineData(new int[0], 1, 0), InlineData(new[] { 0, 1 }, 2, 2)]
         public void Test(int[] input, int target, int expect)
         {
-            var so = GetSo;
-            var result = so.SearchInsert(input, target);
+            var result = So.SearchInsert(input, target);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

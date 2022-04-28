@@ -23,7 +23,7 @@ namespace LeetCode.Problems.P226InvertBinaryTree
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -34,12 +34,11 @@ namespace LeetCode.Problems.P226InvertBinaryTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, int?[] expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so.InvertTree(tree);
+            var result = So.InvertTree(tree);
             Assert.Equal(expect, result.AsEnumerable());
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

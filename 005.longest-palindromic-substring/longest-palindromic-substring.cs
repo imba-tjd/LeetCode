@@ -64,20 +64,19 @@ namespace LeetCode.Problems.P005LongestPalindromicSubstring
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData("babad", "bab"), InlineData("cbbd", "bb"), InlineData("cbbb", "bbb")]
         [InlineData("a", "a"), InlineData("bb", "bb")]
         public void Test(string input, string expect)
         {
-            var so = GetSo;
-            string result = so.LongestPalindrome(input);
+            string result = So.LongestPalindrome(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 
     public class BFTest
     {

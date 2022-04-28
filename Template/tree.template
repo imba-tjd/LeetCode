@@ -8,8 +8,7 @@
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, int expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so
+            var result = So
             Assert.Equal(expect, result);
         }

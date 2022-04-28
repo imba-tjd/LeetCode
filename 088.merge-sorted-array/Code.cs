@@ -39,17 +39,16 @@ class Solution3 : ISolution
 abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution3();
+    protected virtual ISolution So => new Solution3();
 
     [Theory]
     [InlineData(new[] { 1, 2, 3, 0, 0, 0 }, 3, new[] { 2, 5, 6 }, 3, new[] { 1, 2, 2, 3, 5, 6 })]
     public void Test(int[] nums1, int m, int[] nums2, int n, int[] expect)
     {
-        var so = GetSo;
-        so.Merge(nums1, m, nums2, n);
+        So.Merge(nums1, m, nums2, n);
         Assert.Equal(expect, nums1);
     }
 }
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }

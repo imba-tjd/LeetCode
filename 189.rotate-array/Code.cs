@@ -47,7 +47,7 @@ class Solution3 : ISolution
 abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution3();
+    protected virtual ISolution So => new Solution3();
 
     [Theory]
     [InlineData(new[] { 1, 2, 3, 4, 5, 6, 7 }, 3, new[] { 5, 6, 7, 1, 2, 3, 4 }),
@@ -59,10 +59,9 @@ public class MultiTest
     )]
     public void Test(int[] input, int k, int[] expect)
     {
-        var so = GetSo;
-        so.Rotate(input, k);
+        So.Rotate(input, k);
         Assert.Equal(expect, input);
     }
 }
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }

@@ -33,19 +33,18 @@ namespace LeetCode.Problems.P038CountandSay
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(1, "1"), InlineData(4, "1211")]
         public void Test(int input, string expect)
         {
-            var so = GetSo;
-            var result = so.CountAndSay(input);
+            var result = So.CountAndSay(input);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 
     public class GenTest
     {

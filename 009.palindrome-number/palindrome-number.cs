@@ -60,20 +60,19 @@ namespace LeetCode.Problems.P009PalindromeNumber
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(121, true), InlineData(-121, false), InlineData(10, false)
         , InlineData(1, true), InlineData(1001, true)]
         public void Test(int input, bool expect)
         {
-            var so = GetSo;
-            bool result = so.IsPalindrome(input);
+            bool result = So.IsPalindrome(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
-    public class Test4 : MultiTest { protected override ISolution GetSo => new Solution4(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
+    public class Test4 : MultiTest { protected override ISolution So => new Solution4(); }
 }

@@ -50,7 +50,7 @@ namespace LeetCode.Problems.P100SameTree
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -63,11 +63,10 @@ namespace LeetCode.Problems.P100SameTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] a, int?[] b, bool expect)
         {
-            var so = GetSo;
-            var result = so.IsSameTree(TreeNodeHelper.Create(a), TreeNodeHelper.Create(b));
+            var result = So.IsSameTree(TreeNodeHelper.Create(a), TreeNodeHelper.Create(b));
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

@@ -52,7 +52,7 @@ namespace LeetCode.Problems.P101SymmetricTree
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -65,11 +65,10 @@ namespace LeetCode.Problems.P101SymmetricTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, bool expect)
         {
-            var so = GetSo;
-            var result = so.IsSymmetric(TreeNodeHelper.Create(treearr));
+            var result = So.IsSymmetric(TreeNodeHelper.Create(treearr));
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

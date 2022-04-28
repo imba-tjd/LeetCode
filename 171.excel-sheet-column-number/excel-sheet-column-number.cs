@@ -27,17 +27,16 @@ namespace LeetCode.Problems.P171ExcelSheetColumnNumber
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData("A", 1), InlineData("AB", 28), InlineData("ZY", 701)]
         public void Test(string input, int expect)
         {
-            var so = GetSo;
-            var result = so.TitleToNumber(input);
+            var result = So.TitleToNumber(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

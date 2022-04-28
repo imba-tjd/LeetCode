@@ -80,12 +80,12 @@ namespace LeetCode.Problems.P155MinStack
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Fact]
         public void Test()
         {
-            var minStack = GetSo;
+            var minStack = So;
 
             minStack.Push(-2);
             minStack.Push(0);
@@ -98,7 +98,7 @@ namespace LeetCode.Problems.P155MinStack
         [Fact]
         public void Test2()
         {
-            var minStack = GetSo;
+            var minStack = So;
 
             minStack.Push(0);
             minStack.Push(1);
@@ -108,6 +108,6 @@ namespace LeetCode.Problems.P155MinStack
             Assert.Equal(0, minStack.GetMin());
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

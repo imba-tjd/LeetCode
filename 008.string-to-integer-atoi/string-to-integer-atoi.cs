@@ -39,7 +39,7 @@ namespace LeetCode.Problems.P008StringtoIntegeratoi
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData("42", 42), InlineData("   -42", -42), InlineData("4193 with words", 4193),
@@ -47,11 +47,10 @@ namespace LeetCode.Problems.P008StringtoIntegeratoi
         InlineData("2147483646", 2147483646)]
         public void Test(string input, int expect)
         {
-            var so = GetSo;
-            var result = so.MyAtoi(input);
+            var result = So.MyAtoi(input);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

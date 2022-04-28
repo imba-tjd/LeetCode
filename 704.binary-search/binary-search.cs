@@ -81,19 +81,18 @@ namespace LeetCode.Problems.P704BinarySearch
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 9, 4), InlineData(new[] { -1, 0, 3, 5, 9, 12 }, 2, -1),
         InlineData(new int[0], 1, -1), InlineData(new[] { 1 }, 1, 0)]
         public void Test(int[] input, int target, int expect)
         {
-            var so = GetSo;
-            var result = so.Search(input, target);
+            var result = So.Search(input, target);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-    public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+    public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
 }

@@ -39,17 +39,16 @@ class Solution2 : ISolution
 abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution2();
+    protected virtual ISolution So => new Solution2();
 
     [Theory]
     [InlineData(new[] { 1, 2, 0 }, 3), InlineData(new[] { 3, 4, -1, 1 }, 2),
     InlineData(new[] { 7, 8, 9, 11, 12 }, 1), InlineData(new[] { 1 }, 2), InlineData(new[] { 1, 1 }, 2)]
     public void Test(int[] input, int expect)
     {
-        var so = GetSo;
-        var result = so.FirstMissingPositive(input);
+        var result = So.FirstMissingPositive(input);
         Assert.Equal(expect, result);
     }
 }
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }

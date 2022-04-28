@@ -51,7 +51,7 @@ class Solution : ISolution
 // abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution();
+    protected virtual ISolution So => new Solution();
 
     [Theory]
     [InlineData(new[] { 1, 3 }, new[] { 2 }, 2.0)]
@@ -62,9 +62,8 @@ public class MultiTest
     [InlineData(new[] { 1, 2, 3 }, new int[0], 2.0)]
     public void Test(int[] nums1, int[] nums2, double expect)
     {
-        var so = GetSo;
-        var result = so.FindMedianSortedArrays(nums1, nums2);
+        var result = So.FindMedianSortedArrays(nums1, nums2);
         Assert.Equal(expect, result);
     }
 }
-// public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
+// public class Test1 : MultiTest { protected override ISolution So => new Solution(); }

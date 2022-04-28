@@ -29,7 +29,7 @@ namespace LeetCode.Problems.P021MergeTwoSortedLists
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(new[] { 1, 2, 4 }, new[] { 1, 3, 4 }, new[] { 1, 1, 2, 3, 4, 4 })]
@@ -37,14 +37,13 @@ namespace LeetCode.Problems.P021MergeTwoSortedLists
         {
             var l1 = ListNodeHelper.Create(l1a);
             var l2 = ListNodeHelper.Create(l2a);
-            var so = GetSo;
-            var merged = so.MergeTwoLists(l1, l2);
+            var merged = So.MergeTwoLists(l1, l2);
 
             var result = ListNodeHelper.AsEnumerable(merged).ToArray();
             Assert.Equal(expect, result);
         }
 
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

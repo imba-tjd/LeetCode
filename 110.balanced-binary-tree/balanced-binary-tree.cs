@@ -18,7 +18,7 @@ namespace LeetCode.Problems.P110BalancedBinaryTree
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -30,12 +30,11 @@ namespace LeetCode.Problems.P110BalancedBinaryTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, bool expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so.IsBalanced(tree);
+            var result = So.IsBalanced(tree);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

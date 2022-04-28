@@ -47,7 +47,7 @@ namespace LeetCode.Problems.P014LongestCommonPrefix
     abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         [Theory]
         [InlineData(new[] { "flower", "flow", "flight" }, "fl"),
@@ -55,11 +55,10 @@ namespace LeetCode.Problems.P014LongestCommonPrefix
         InlineData(new[] { "" }, ""), InlineData(new string[0], "")]
         public void Test(string[] input, string expect)
         {
-            var so = GetSo;
-            var result = so.LongestCommonPrefix(input);
+            var result = So.LongestCommonPrefix(input);
             Assert.Equal(expect, result);
         }
     }
-    public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

@@ -46,17 +46,16 @@ namespace LeetCode.Problems.P058LengthofLastWord
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution2();
+        protected virtual ISolution So => new Solution2();
 
         [Theory]
         [InlineData("Hello World", 5), InlineData("asdf", 4), InlineData("  ", 0), InlineData("a ", 1)]
         public void Test(string input, int expect)
         {
-            var so = GetSo;
-            var result = so.LengthOfLastWord(input);
+            var result = So.LengthOfLastWord(input);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

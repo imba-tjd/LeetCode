@@ -41,7 +41,7 @@ public class Solution2 : ISolution
 // abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution2();
+    protected virtual ISolution So => new Solution2();
 
     [Theory]
     [InlineData(123, 321)]
@@ -51,11 +51,10 @@ public class MultiTest
     [InlineData(-2147483648, 0)]
     public void Test(int input, int expect)
     {
-        var so = GetSo;
-        int result = so.Reverse(input);
+        int result = So.Reverse(input);
         Assert.Equal(expect, result);
     }
 }
 
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }

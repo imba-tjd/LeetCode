@@ -36,7 +36,7 @@ namespace LeetCode.Problems.P637AverageofLevelsinBinaryTree
     // abstract
     public class MultiTest
     {
-        protected virtual ISolution GetSo => new Solution();
+        protected virtual ISolution So => new Solution();
 
         public static IEnumerable<object[]> TestData()
         {
@@ -47,12 +47,11 @@ namespace LeetCode.Problems.P637AverageofLevelsinBinaryTree
         [MemberData(nameof(TestData))]
         public void Test(int?[] treearr, double[] expect)
         {
-            var so = GetSo;
             var tree = TreeNodeHelper.Create(treearr);
-            var result = so.AverageOfLevels(tree);
+            var result = So.AverageOfLevels(tree);
             Assert.Equal(expect, result);
         }
     }
-    // public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-    // public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
+    // public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+    // public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
 }

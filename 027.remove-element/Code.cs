@@ -76,7 +76,7 @@ class Solution5 : ISolution
 abstract
 public class MultiTest
 {
-    protected virtual ISolution GetSo => new Solution();
+    protected virtual ISolution So => new Solution();
 
     [Theory]
     [InlineData(new[] { 3, 2, 2, 3 }, 3, 2), InlineData(new[] { 0, 1, 2, 2, 3, 0, 4, 2 }, 2, 5),
@@ -84,13 +84,12 @@ public class MultiTest
     InlineData(new[] { 3, 3 }, 3, 0), InlineData(new[] { 1, 1, 0 }, 1, 1), InlineData(new[] { 1, 0 }, 1, 1)]
     public void Test(int[] input, int val, int expect)
     {
-        var so = GetSo;
-        var result = so.RemoveElement(input, val);
+        var result = So.RemoveElement(input, val);
         Assert.Equal(expect, result);
     }
 }
-public class Test1 : MultiTest { protected override ISolution GetSo => new Solution(); }
-public class Test2 : MultiTest { protected override ISolution GetSo => new Solution2(); }
-public class Test3 : MultiTest { protected override ISolution GetSo => new Solution3(); }
-public class Test4 : MultiTest { protected override ISolution GetSo => new Solution3(); }
-public class Test5 : MultiTest { protected override ISolution GetSo => new Solution3(); }
+public class Test1 : MultiTest { protected override ISolution So => new Solution(); }
+public class Test2 : MultiTest { protected override ISolution So => new Solution2(); }
+public class Test3 : MultiTest { protected override ISolution So => new Solution3(); }
+public class Test4 : MultiTest { protected override ISolution So => new Solution3(); }
+public class Test5 : MultiTest { protected override ISolution So => new Solution3(); }
