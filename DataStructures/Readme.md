@@ -12,6 +12,8 @@
 
 LeetCode的ListNode就是int的。本代码试图“特化”，让`ListNode`继承`ListNode<int>`。前者的next必须写`ListNode next`，否则前者取next就到父类了；但这属性不能override，必须用new重新声明，因为set时父类引用无法接受子类参数；然而子类调用父类函数时还是会跑到父类上，因为父类的next不是子类新声明的，解决方法是用属性封装一下。另外真正的`ListNode<int>`转换成`ListNode`必须要重新创建一遍对象。
 
+不含头结点。
+
 ## Tree二叉树
 
 * 主要是几种根据序列创建树的算法，以及把树序列化的算法，且希望能做到round-trip
