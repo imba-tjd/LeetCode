@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <!-- <AnalysisMode>AllEnabledByDefault</AnalysisMode> -->
     <!-- <ImplicitUsings>true</ImplicitUsings> -->
   </PropertyGroup>
@@ -10,7 +10,6 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="*" />
     <PackageReference Include="xunit" Version="2.*" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.*" PrivateAssets="all" />
-    <Compile Remove="Template/**;Tools/**" />
   </ItemGroup>
 
 <ItemGroup>
