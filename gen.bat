@@ -1,0 +1,1 @@
+@python Template/gen.py %*
