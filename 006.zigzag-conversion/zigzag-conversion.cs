@@ -9,6 +9,7 @@ namespace LeetCode.Problems.P006ZigZagConversion
         {
             if (numRows == 1)
                 return s;
+
             StringBuilder[] sbl = new StringBuilder[numRows];
             for (int j = 0; j < sbl.Length; j++)
                 sbl[j] = new StringBuilder();

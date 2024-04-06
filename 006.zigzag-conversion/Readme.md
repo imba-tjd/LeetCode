@@ -1,9 +1,7 @@
 # [6. ZigZag Conversion](https://leetcode.com/problems/zigzag-conversion/)
 
-Input: s = "PAYPALISHIRING", numRows = 4<br>
+Input: s = "PAYPALISHIRING", numRows = 4\
 Output: "PINALSIGYAHRPI"
-
-Explanation:
 
 ```
 P     I    N

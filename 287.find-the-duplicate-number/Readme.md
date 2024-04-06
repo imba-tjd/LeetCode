@@ -17,4 +17,6 @@ n+1个数刚好在1到n之间。如果最多重复一次，重复的那个数也
 
 答案给的是 Floyd's Tortoise and Hare，类似于 [142. Linked List Cycle II](../142.linked-list-cycle-ii) 的检测循环算法。关键是要把值当作下一次的索引，而不是对普通的索引用快慢指针；这样如果存在环就一定会相遇。
 
-解法五来自：<https://zhuanlan.zhihu.com/p/76698113>，时间复杂度O(nlogn)，因为二分了n。
+解法五来自：<https://zhuanlan.zhihu.com/p/76698113>，时间复杂度O(nlogn)，因为二分了n。https://zhuanlan.zhihu.com/p/118497425
+
+剑指Offer第二版3：n个数范围在[0,n-1]，找任意一个重复的数字，允许修改数组。思路：原地重排数组，使得x=nums[x]，若无重复则刚好排完。具体做法：当扫描到下标为i的数字时，看v=nums[i]是否等于i。如果等于，则继续处理。否则拿v和nums[v]比较，如果相等，则找到了重复的数字；否则将nums[i]和nums[v]交换，即将v换到属于它的位置。
