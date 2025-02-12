@@ -4,7 +4,7 @@ namespace LeetCode.Problems.P005LongestPalindromicSubstring
     public interface ISolution { string LongestPalindrome(string s); }
     class Solution : ISolution
     {
-        public string LongestPalindrome(string s) // BF
+        public string LongestPalindrome(string s)
         {
             if (s.Length == 1)
                 return s;
@@ -32,7 +32,7 @@ namespace LeetCode.Problems.P005LongestPalindromicSubstring
 
     class Solution2 : ISolution
     {
-        public string LongestPalindrome(string s) // DP
+        public string LongestPalindrome(string s)
         {
             ReadOnlySpan<char> ss = s.AsSpan();
             ReadOnlySpan<char> str = "";
