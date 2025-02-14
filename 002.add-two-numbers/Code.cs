@@ -13,6 +13,43 @@ class Solution
     }
 }
 
+class Solution2 // 常规解法
+{
+    public ListNode AddTwoNumbers(ListNode l1, ListNode l2)
+    {
+        var l3 = new ListNode(-1);
+        var p = l3;
+        int carry = 0;
+        while (l1 != null || l2 != null) // 变化1：加 || carry!=0 则最后不用额外判断，但多分支实际会降低速度
+        {
+            int val = carry;
+            if (l1 != null) // 变化2：上面的while改成l1和l2均不为null，则此处不必判断；后面再加两个循环分别处理二者其一不为null
+            {
+                val += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null)
+            {
+                val += l2.val;
+                l2 = l2.next;
+            }
+            if (val > 9) // 变化3：不用carry变量，只用val，当前值为 val%10，下一次的值为 val/=10。但实际会降低速度
+            {
+                val -= 10;
+                carry = 1;
+            }
+            else
+                carry = 0;
+
+            p.next = new ListNode(val);
+            p = p.next;
+        }
+        if (carry != 0)
+            p.next = new ListNode(1);
+        return l3.next;
+    }
+}
+
 public class UnitTest
 {
     [Theory]
